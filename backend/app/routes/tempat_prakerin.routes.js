@@ -12,31 +12,31 @@ module.exports = function (app) {
 
     app.get(
         "/api/test/listtempatp",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getTempatP
     );
 
     app.get(
         "/api/test/listtempatp/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getTempatPById
     );
 
     app.post(
         "/api/test/listtempatp",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.createTempatP
     );
 
     app.patch(
         "/api/test/listtempatp/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.updateTempatP
     );
 
     app.delete(
         "/api/test/listtempatp/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteTempatP
     );
 };

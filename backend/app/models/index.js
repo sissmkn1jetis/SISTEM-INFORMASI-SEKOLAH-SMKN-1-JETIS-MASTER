@@ -35,6 +35,7 @@ db.thn_ajar = require("../models/thn_ajar.model")(sequelize, Sequelize);
 db.siswa = require("../models/siswa.model")(sequelize, Sequelize);
 db.walas = require("../models/walas.model")(sequelize, Sequelize);
 db.nk = require("../models/nketrampilan.model")(sequelize, Sequelize);
+db.np = require("../models/npengetahuan.model")(sequelize, Sequelize);
 db.tempat_prakerin = require("../models/tempat_prakerin.model")(sequelize, Sequelize);
 db.absensi = require("../models/absensi.model")(sequelize, Sequelize);
 db.jurnal_harian = require("../models/jurnal_harian.model")(sequelize, Sequelize);
@@ -62,9 +63,19 @@ db.kelas.belongsTo(db.jurusan, { as: "jurusan", });
 // db.user.hasMany(db.jurusan);
 // db.jurusan.belongsTo(db.user, { foreignKey: "userId", as: "user" });
 
-//guru & mapel
-// db.mapel.hasMany(db.guru, { foreignKey: "mapelId", as: "guru" });
-// db.guru.belongsTo(db.mapel, { foreignKey: "mapelId", as: "mapel", });
+//guru & mapel, guru & kelas, guru & tahun ajaran
+db.mapel.hasMany(db.guru, { foreignKey: "mapelId", as: "guru" });
+db.guru.belongsTo(db.mapel, { foreignKey: "mapelId", as: "mapel", });
+
+db.kelas.belongsToMany(db.guru, {
+  through: "guru_kelas", as: 'guru', foreignKey: "kelasId", otherKey: "guruId"
+});
+db.guru.belongsToMany(db.kelas, {
+  through: "guru_kelas", as: 'kelas', foreignKey: "guruId", otherKey: "kelasId"
+});
+
+db.thn_ajar.hasMany(db.guru, { foreignKey: "thnAjarId", as: "guru" });
+db.guru.belongsTo(db.thn_ajar, { foreignKey: "thnAjarId", as: "thn_ajar" });
 
 //izin & siswa
 db.siswa.hasOne(db.izin, { foreignKey: "siswaId", as: "izin" });
@@ -86,7 +97,10 @@ db.siswa.belongsTo(db.tempat_prakerin, { foreignKey: "tempat_pklId", as: "tempat
 db.kelas.hasMany(db.siswa, { foreignKey: "kelasId", as: "siswa" });
 db.siswa.belongsTo(db.kelas, { foreignKey: "kelasId", as: "kelas" });
 
-//guru, kelas & tahunajar
+db.user.hasMany(db.siswa, { foreignKey: 'userId', targetKey: 'id' });
+db.siswa.belongsTo(db.user, { foreignKey: 'userId', targetKey: 'id' });
+
+//relasi Walas : guru,tahun ajaran, kelas, user
 db.guru.hasOne(db.walas, { foreignKey: "guruId", as: "walas" });
 db.walas.belongsTo(db.guru, { foreignKey: "guruId", as: "guru" });
 
@@ -96,24 +110,41 @@ db.walas.belongsTo(db.thn_ajar, { foreignKey: "thnAjarId", as: "thn_ajar" });
 db.kelas.hasOne(db.walas, { foreignKey: "kelassId", as: "walas" });
 db.walas.belongsTo(db.kelas, { foreignKey: "kelassId", as: "kelas" });
 
-// relasi nilai ketrampilan
-db.user.hasMany(db.nk);
-db.nk.belongsTo(db.user, { foreignKey: 'userId', targetKey: 'id', as: "user" });
+db.user.hasOne(db.walas, { foreignKey: 'userId', targetKey: 'id' });
+db.walas.belongsTo(db.user, { foreignKey: 'userId', targetKey: 'id' });
 
-db.guru.hasMany(db.nk);
+// relasi nilai ketrampilan
+// db.user.hasMany(db.nk);
+// db.nk.belongsTo(db.user, { foreignKey: 'userId', targetKey: 'id', as: "user" });
+
+db.guru.hasMany(db.nk, { foreignKey: 'guruId', as: "nk" });
 db.nk.belongsTo(db.guru, { foreignKey: 'guruId', as: "guru" });
 
-db.siswa.hasMany(db.nk);
+db.siswa.hasMany(db.nk, { foreignKey: 'siswaId', as: "nk" });
 db.nk.belongsTo(db.siswa, { foreignKey: 'siswaId', as: "siswa" });
 
-db.kelas.hasMany(db.nk);
-db.nk.belongsTo(db.kelas, { foreignKey: 'kelasId', as: "kelas" });
 
-db.mapel.hasMany(db.nk);
-db.nk.belongsTo(db.mapel, { foreignKey: 'mapelId', as: "mapel" });
+db.guru.hasMany(db.np, { foreignKey: 'guruId', as: "np" });
+db.np.belongsTo(db.guru, { foreignKey: 'guruId', as: "guru" });
 
-db.thn_ajar.hasMany(db.nk);
-db.nk.belongsTo(db.thn_ajar, { foreignKey: 'thnAjarId', as: "thn_ajar" });
+db.siswa.hasMany(db.np, { foreignKey: 'siswaId', as: "np" });
+db.np.belongsTo(db.siswa, { foreignKey: 'siswaId', as: "siswa" });
+
+// db.siswa.belongsToMany(db.nk, {
+//   through: "siswa_nk", as: 'nk', foreignKey: "siswaId", otherKey: "nkId"
+// });
+// db.guru.belongsToMany(db.kelas, {
+//   through: "siswa_nk", as: 'kelas', foreignKey: "nkId", otherKey: "siswaId"
+// });
+
+// db.kelas.hasMany(db.nk);
+// db.nk.belongsTo(db.kelas, { foreignKey: 'kelasId', as: "kelas" });
+
+// db.mapel.hasMany(db.nk);
+// db.nk.belongsTo(db.mapel, { foreignKey: 'mapelId', as: "mapel" });
+
+// db.thn_ajar.hasMany(db.nk);
+// db.nk.belongsTo(db.thn_ajar, { foreignKey: 'thnAjarId', as: "thn_ajar" });
 
 //refreshtoken & user
 db.refreshToken.belongsTo(db.user, {
@@ -123,7 +154,7 @@ db.user.hasOne(db.refreshToken, {
   foreignKey: 'userId', targetKey: 'id'
 });
 
-//guru & user
+//relasi guru & user
 db.user.hasOne(db.guru, { foreignKey: 'userId', targetKey: 'id' });
 db.guru.belongsTo(db.user, { foreignKey: 'userId', targetKey: 'id' });
 

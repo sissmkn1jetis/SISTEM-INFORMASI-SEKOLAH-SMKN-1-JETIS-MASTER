@@ -1,13 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Home from "./components/Home.vue";
+// import Home from "./components/Home.vue";
 import Layout from "./layout/Layout.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 // lazy-loaded
 const Dashboard = () => import("./components/Dashboard.vue")
-const Admin = () => import("./components/Admin.vue")
-const Gurutes = () => import("./components/Guru.vue")
-const Walastes = () => import("./components/Walas.vue")
+const AdminProfile = () => import("./components/ProfileAdmin.vue")
+const GuruProfile = () => import("./components/ProfileGuru.vue")
+const WalasProfile = () => import("./components/ProfileWalas.vue")
 const Guru = () => import("./components/DataGuru/Gurulist.vue")
 const User = () => import("./components/DataUser/Userlist.vue")
 const Jurusan = () => import("./components/DataJurusan/Jurusanlist.vue")
@@ -16,8 +16,13 @@ const Mapel = () => import("./components/DataMapel/Mapellist.vue")
 const TahunAjar = () => import("./components/DataTahunAjar/TahunAjarlist.vue")
 const Siswa = () => import("./components/DataSiswa/Siswalist.vue")
 const Walas = () => import("./components/DataWalas/Walaslist.vue")
-const NK = () => import("./components/DataNilaiKetrampilan/NKlist.vue")
-const tesNK = () => import("./components/DataNilaiKetrampilan/TesNKlist.vue")
+// const NK = () => import("./components/DataNilai/NKlist.vue")
+const DataSiswaWalas = () => import("./components/DataCetak/DataSiswaWalas.vue")
+const DataSiswaGuru = () => import("./components/DataNilai/DataSiswaGuru.vue")
+const DataNilaiKetrampilan = () => import("./components/DataNilai/DataNilaiKetrampilan.vue")
+const DataCetakNilaiKetrampilan = () => import("./components/DataCetak/DataCetakNilaiKetrampilan.vue")
+const DataCetakNilaiPengetahuan = () => import("./components/DataCetak/DataCetakNilaiPengetahuan.vue")
+const DataNilaiPengetahuan = () => import("./components/DataNilai/DataNilaiPengetahuan.vue")
 const TempatPrakerin = () => import("./components/DataTempatPrakerin/TempatPrakerinList.vue")
 const Absensi = () => import("./components/DataAbsensi/AbsensiList.vue")
 const JurnalH = () => import("./components/DataJurnalHarian/JurnalHList.vue")
@@ -31,25 +36,19 @@ const routes = [
     children: [
       {
         path: "/",
-        component: Home,
-      },
-      {
-        path: "/home",
-        name: "home",
-        // lazy-loaded
-        component: Home,
+        component: Dashboard,
       },
       {
         path: "/dashboard",
-        name: "Dashboard",
+        name: "dashboard",
         // lazy-loaded
         component: Dashboard,
       },
       {
-        path: "/admin",
-        name: "admin",
+        path: "/adminprofile",
+        name: "adminprofile",
         // lazy-loaded
-        component: Admin,
+        component: AdminProfile,
       },
       {
         path: "/user",
@@ -58,16 +57,16 @@ const routes = [
         component: User,
       },
       {
-        path: "/gurutes",
-        name: "gurutes",
+        path: "/guruprofile",
+        name: "guruprofile",
         // lazy-loaded
-        component: Gurutes,
+        component: GuruProfile,
       },
       {
-        path: "/walastes",
-        name: "walastes",
+        path: "/walasprofile",
+        name: "walasprofile",
         // lazy-loaded
-        component: Walastes,
+        component: WalasProfile,
       },
 
       {
@@ -119,41 +118,77 @@ const routes = [
         component: Walas,
       },
 
+      // {
+      //   path: "/nk",
+      //   name: "nk",
+      //   // lazy-loaded
+      //   component: NK,
+      // },
+
       {
-        path: "/nk",
-        name: "nk",
+        path: "/datanilaipengetahuan",
+        name: "datanilaipengetahuan",
         // lazy-loaded
-        component: NK,
+        component: DataNilaiPengetahuan,
       },
 
       {
-        path: "/tesnk",
-        name: "tesnk",
+        path: "/datanilaiketrampilan",
+        name: "datanilaiketrampilan",
         // lazy-loaded
-        component: tesNK,
+        component: DataNilaiKetrampilan,
       },
-      
+
+      {
+        path: "/datasiswaguru",
+        name: "datasiswaguru",
+        // lazy-loaded
+        component: DataSiswaGuru,
+      },
+
+      {
+        path: "/datacetaknilaiketrampilan",
+        name: "datacetaknilaiketrampilan",
+        // lazy-loaded
+        component: DataCetakNilaiKetrampilan,
+      },
+
+      {
+        path: "/datacetaknilaipengetahuan",
+        name: "datacetaknilaipengetahuan",
+        // lazy-loaded
+        component: DataCetakNilaiPengetahuan,
+      },
+
+      {
+        path: "/datasiswawalas",
+        name: "datasiswawalas",
+        // lazy-loaded
+        component: DataSiswaWalas,
+      },
+
+
       {
         path: "/tempatpkl",
         name: "tempatpkl",
         // lazy-loaded
         component: TempatPrakerin,
       },
-      
+
       {
         path: "/absensi",
         name: "absensi",
         // lazy-loaded
         component: Absensi,
       },
-      
+
       {
         path: "/jurnalharian",
         name: "jurnalharian",
         // lazy-loaded
         component: JurnalH,
       },
-      
+
       {
         path: "/izin",
         name: "izin",

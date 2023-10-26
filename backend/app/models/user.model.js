@@ -24,30 +24,30 @@ module.exports = (sequelize, Sequelize) => {
     alamat: {
       type: Sequelize.STRING,
     },
-    almt_kel: {
-      type: Sequelize.STRING,
-    },
-    almt_kec: {
-      type: Sequelize.STRING,
-    },
-    almt_kab: {
-      type: Sequelize.STRING,
-    },
-    almt_prov: {
-      type: Sequelize.STRING,
-    },
+    // almt_kel: {
+    //   type: Sequelize.STRING,
+    // },
+    // almt_kec: {
+    //   type: Sequelize.STRING,
+    // },
+    // almt_kab: {
+    //   type: Sequelize.STRING,
+    // },
+    // almt_prov: {
+    //   type: Sequelize.STRING,
+    // },
     no_telp: {
       type: Sequelize.STRING,
     },
-    email: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        notEmpty: true,
-        isEmail: true
-      }
-    },
+    // email: {
+    //   type: Sequelize.STRING,
+    //   allowNull: false,
+    //   unique: true,
+    //   validate: {
+    //     notEmpty: true,
+    //     isEmail: true
+    //   }
+    // },
     password: {
       type: Sequelize.STRING,
       allowNull: false,

@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
+        userId: {
+            type: Sequelize.INTEGER,
+        },
     });
 
     return Walas;

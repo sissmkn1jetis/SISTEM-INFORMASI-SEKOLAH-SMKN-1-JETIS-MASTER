@@ -181,18 +181,39 @@ exports.Kabeng = (req, res) => {
 
 
 const db = require("../models");
-const { user: User, guru: Guru } = db;
+const { user: User, guru: Guru, walas: Walas, kelas: Kelas, siswa: Siswa } = db;
 const bcrypt = require("bcryptjs");
 
 exports.getUser = async (req, res) => {
   try {
     const response = await User.findAll({
-      attributes: ['id', 'username', 'email', 'role', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
-        'alamat', 'almt_kel', 'almt_kec', 'almt_kab', 'almt_prov', 'no_telp'],
+      attributes: ['id', 'username', 'role', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
+        'alamat', 'no_telp'],
       include: [
         {
           model: Guru,
-          attributes: ['id', 'nip', 'bidang_studi', 'userId'],
+          attributes: ['id', 'nip', 'nama', 'mapelId', 'thnAjarId', 'userId'],
+          include: [
+            {
+              model: Kelas,
+              as: "kelas",
+              attributes: ['id', 'name_kelas', 'jurusanId'],
+              through: {
+                attributes: [],
+              },
+              include: [
+                {
+                  model: Siswa,
+                  attributes: ['id', 'nis', 'name'],
+                  as: "siswa",
+                },
+              ]
+            },
+          ]
+        },
+        {
+          model: Walas,
+          attributes: ['id', 'kelassId', 'thnAjarId', 'userId'],
         }
       ]
     });
@@ -212,12 +233,16 @@ exports.getByIdUser = async (req, res) => {
     if (!users) return res.status(404).json({ message: "User tidak ditemukan" });
 
     const response = await User.findOne({
-      attributes: ['id', 'username', 'email', 'role', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
-        'alamat', 'almt_kel', 'almt_kec', 'almt_kab', 'almt_prov', 'no_telp'],
+      attributes: ['id', 'username', 'role', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
+        'alamat', 'no_telp'],
       include: [
         {
           model: Guru,
-          attributes: ['id', 'nip', 'bidang_studi', 'userId'],
+          attributes: ['id', 'nip', 'nama', 'mapelId', 'thnAjarId', 'userId'],
+        },
+        {
+          model: Walas,
+          attributes: ['id', 'kelassId', 'thnAjarId', 'userId'],
         }
       ],
       where: {
@@ -232,13 +257,13 @@ exports.getByIdUser = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const { password, confPassword, username, email, role, tempat_lahir, tanggal_lahir, jenis_kelamin, agama,
-      alamat, almt_kel, almt_kec, almt_kab, almt_prov, no_telp } = req.body;
+    const { password, confPassword, username, role, tempat_lahir, tanggal_lahir, jenis_kelamin, agama,
+      alamat, no_telp } = req.body;
     if (password !== confPassword) return res.status(400).json({ message: "Password dan Confirm Password tidak cocok" });
     const hashPassword = bcrypt.hashSync(password, 8);
     await User.create({
       username: username,
-      email: email,
+      // email: email,
       password: hashPassword,
       role: role,
       tempat_lahir: tempat_lahir,
@@ -246,10 +271,10 @@ exports.createUser = async (req, res) => {
       jenis_kelamin: jenis_kelamin,
       agama: agama,
       alamat: alamat,
-      almt_kel: almt_kel,
-      almt_kec: almt_kec,
-      almt_kab: almt_kab,
-      almt_prov: almt_prov,
+      // almt_kel: almt_kel,
+      // almt_kec: almt_kec,
+      // almt_kab: almt_kab,
+      // almt_prov: almt_prov,
       no_telp: no_telp
     });
     res.status(201).send({ message: "User was registered successfully!" });
@@ -266,8 +291,8 @@ exports.updateUser = async (req, res) => {
       }
     });
     if (!users) return res.status(404).json({ message: "User tidak ditemukan" });
-    const { password, confPassword, username, email, role, tempat_lahir, tanggal_lahir, jenis_kelamin, agama,
-      alamat, almt_kel, almt_kec, almt_kab, almt_prov, no_telp } = req.body;
+    const { password, confPassword, username, role, tempat_lahir, tanggal_lahir, jenis_kelamin, agama,
+      alamat, no_telp } = req.body;
     let hashPassword;
     if (password === "" || password === null) {
       hashPassword = users.password
@@ -277,7 +302,7 @@ exports.updateUser = async (req, res) => {
     if (password !== confPassword) return res.status(400).json({ message: "Password dan Confirm Password tidak cocok" });
     await User.update({
       username: username,
-      email: email,
+      // email: email,
       password: hashPassword,
       role: role,
       tempat_lahir: tempat_lahir,
@@ -285,10 +310,10 @@ exports.updateUser = async (req, res) => {
       jenis_kelamin: jenis_kelamin,
       agama: agama,
       alamat: alamat,
-      almt_kel: almt_kel,
-      almt_kec: almt_kec,
-      almt_kab: almt_kab,
-      almt_prov: almt_prov,
+      // almt_kel: almt_kel,
+      // almt_kec: almt_kec,
+      // almt_kab: almt_kab,
+      // almt_prov: almt_prov,
       no_telp: no_telp
     }, {
       where: {

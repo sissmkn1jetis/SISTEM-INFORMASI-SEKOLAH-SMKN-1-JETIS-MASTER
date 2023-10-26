@@ -1,5 +1,5 @@
 const db = require("../models");
-const { siswa: Siswa, kelas: Kelas, tempat_prakerin: tempatp } = db;
+const { siswa: Siswa, kelas: Kelas, nk: NK, tempat_prakerin: tempatp } = db;
 //tempatp = tempatprakerin
 
 exports.getSiswa = async (req, res) => {
@@ -17,7 +17,13 @@ exports.getSiswa = async (req, res) => {
                 attributes: ['id', 'name_tempat'],
                 as: "tempat_prakerin"
             },
-        ]
+            {
+                model: NK,
+                as: 'nk',
+                attributes: ['id', 'siswaId', 'proses1', 'proses2', 'proses3', 'proses4', 'proses5', 'proses6', 'proses7', 'proses8', 'proyek1',
+                    'proyek2', 'proyek3', 'proyek4', 'proyek5', 'proyek6', 'proyek7', 'proyek8', 'produk1', 'produk2', 'produk3', 'produk4', 'produk5', 'produk6', 'produk7', 'produk8'],
+            },
+            ]
         });
         res.status(200).json(response);
     } catch (error) {

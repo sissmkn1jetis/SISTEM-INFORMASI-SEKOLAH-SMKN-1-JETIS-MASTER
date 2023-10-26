@@ -23,20 +23,20 @@ module.exports = function (app) {
     );
 
     app.post(
-        "/api/test/listnk",
+        "/api/test/listnk/:siswaId",
         [authJwt.verifyToken, authJwt.isGuru],
         controller.createNK
     );
 
     app.patch(
         "/api/test/listnk/:id",
-        [authJwt.verifyToken, authJwt.isGuru],
+        // [authJwt.verifyToken, authJwt.isGuru],
         controller.updateNK
     );
 
     app.delete(
         "/api/test/listnk/:id",
-        [authJwt.verifyToken, authJwt.isGuru],
+        // [authJwt.verifyToken, authJwt.isGuru],
         controller.deleteNK
     );
 };

@@ -13,6 +13,30 @@ class UserService {
     return api.get('/test/guru');
   }
 
+  getProfileAdmin() {
+    return api.get('/auth/me/admin');
+  }
+
+  getProfileGuru() {
+    return api.get('/auth/me/guru');
+  }
+
+  getProfileWalas() {
+    return api.get('/auth/me/walas');
+  }
+
+  CetakPDFNK(data) {
+    return api.post('/pdfnilaiketrampilan', data)
+  }
+
+  CetakPDFNP(data) {
+    return api.post('/pdfnilaipengetahuan', data)
+  }
+
+  getCetakPDF() {
+    return api.get('/pdfnilaiketrampilan')
+  }
+
   getAdmin() {
     return api.get('/test/admin');
   }

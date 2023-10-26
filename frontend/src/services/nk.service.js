@@ -7,8 +7,8 @@ class NKService {
     getNKById(id) {
         return api.get(`/test/listnk/${id}`);
     }
-    createNK(data) {
-        return api.post("/test/listnk", data);
+    createNK(siswaId, data) {
+        return api.post(`/test/listnk/${siswaId}`, data);
     }
     updateNK(id, data) {
         return api.patch(`/test/listnk/${id}`, data);

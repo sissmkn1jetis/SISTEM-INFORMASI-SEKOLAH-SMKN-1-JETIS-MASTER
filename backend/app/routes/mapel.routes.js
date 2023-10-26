@@ -12,31 +12,31 @@ module.exports = function (app) {
 
     app.get(
         "/api/test/listmapel",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getMapel
     );
 
     app.get(
         "/api/test/listmapel/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getMapelById
     );
 
     app.post(
         "/api/test/listmapel",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.createMapel
     );
 
     app.patch(
         "/api/test/listmapel/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.updateMapel
     );
 
     app.delete(
         "/api/test/listmapel/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteMapel
     );
 };

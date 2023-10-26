@@ -12,31 +12,31 @@ module.exports = function (app) {
 
     app.get(
         "/api/test/listjurusan",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getJurusan
     );
 
     app.get(
         "/api/test/listjurusan/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getJurusanById
     );
 
     app.post(
         "/api/test/listjurusan",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.createJurusan
     );
 
     app.patch(
         "/api/test/listjurusan/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.updateJurusan
     );
 
     app.delete(
         "/api/test/listjurusan/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteJurusan
     );
 };

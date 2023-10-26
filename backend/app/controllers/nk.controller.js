@@ -1,45 +1,34 @@
 const db = require("../models");
-const { guru: Guru, mapel: Mapel, nk: NK, siswa: Siswa, thn_ajar: TahunAjar, kelas: Kelas, user: User } = db;
+const { nk: NK, siswa: Siswa, kelas: Kelas, guru: Guru, user: User } = db;
+const Op = require("sequelize");
 
 exports.getNK = async (req, res) => {
     try {
-        let response
-        response = await NK.findAll({
-            attributes: ['id', 'guruId', 'kelasId', 'thnAjarId', 'mapelId', 'siswaId', 'proses1', 'proses2', 'proses3', 'proses4', 'proses5', 'proses6', 'proses7', 'proses8', 'proyek1',
-                'proyek2', 'proyek3', 'proyek4', 'proyek5', 'proyek6', 'proyek7', 'proyek8', 'produk1', 'produk2', 'produk3', 'produk4', 'produk5', 'produk6', 'produk7', 'produk8'],
-            where: {
-                userId: req.userId
-            },
+        let userId = req.userId;
+        const user = await User.findOne({
+            attributes: ['id', 'username', 'role', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'alamat', 'no_telp'],
+            where: { id: userId },
             include: [
                 {
                     model: Guru,
-                    attributes: ['id', 'name'],
-                    as: "guru"
+                    attributes: ['id', 'nip', 'nama', 'mapelId', 'thnAjarId', 'userId'],
+                    where: { userId: userId },
+                    as: 'guru',
                 },
-                {
-                    model: Mapel,
-                    attributes: ['id', 'name_mapel'],
-                    as: "mapel"
-                },
+            ],
+        });
+        const guruIds = user.guru.id;
+        const response = await NK.findAll({
+            where: {
+                guruId: guruIds
+            },
+            attributes: ['id', 'siswaId', 'guruId', 'proses1', 'proses2', 'proses3', 'proses4', 'proses5', 'proses6', 'proses7', 'proses8', 'proyek1',
+                'proyek2', 'proyek3', 'proyek4', 'proyek5', 'proyek6', 'proyek7', 'proyek8', 'produk1', 'produk2', 'produk3', 'produk4', 'produk5', 'produk6', 'produk7', 'produk8'],
+            include: [
                 {
                     model: Siswa,
                     attributes: ['id', 'name'],
-                    as: "siswa"
-                },
-                {
-                    model: Kelas,
-                    attributes: ['id', 'name_kelas'],
-                    as: "kelas"
-                },
-                {
-                    model: TahunAjar,
-                    attributes: ['id', 'semester', 'semester_aktif', 'thn_ajaran'],
-                    as: "thn_ajar"
-                },
-                {
-                    model: User,
-                    attributes: ['username', 'email'],
-                    as: "user"
+                    as: "siswa",
                 },
             ]
         });
@@ -60,41 +49,18 @@ exports.getNKById = async (req, res) => {
         if (!ketrampilan) return res.status(404).json({ msg: "Data tidak ditemukan" });
         let response;
         response = await NK.findOne({
-            attributes: ['id', 'guruId', 'kelasId', 'thnAjarId', 'mapelId', 'siswaId', 'proses1', 'proses2', 'proses3', 'proses4', 'proses5', 'proses6', 'proses7', 'proses8', 'proyek1',
+            attributes: ['id', 'siswaId', 'proses1', 'proses2', 'proses3', 'proses4', 'proses5', 'proses6', 'proses7', 'proses8', 'proyek1',
                 'proyek2', 'proyek3', 'proyek4', 'proyek5', 'proyek6', 'proyek7', 'proyek8', 'produk1', 'produk2', 'produk3', 'produk4', 'produk5', 'produk6', 'produk7', 'produk8'],
             where: {
+                // [Op.and]: [{ id: ketrampilan.id }, { guruId: req.userId }]
+                // guruId: req.userId
                 id: ketrampilan.id
             },
             include: [
                 {
-                    model: Guru,
-                    attributes: ['id', 'name'],
-                    as: "guru"
-                },
-                {
-                    model: Mapel,
-                    attributes: ['id', 'name_mapel'],
-                    as: "mapel"
-                },
-                {
                     model: Siswa,
                     attributes: ['id', 'name'],
                     as: "siswa"
-                },
-                {
-                    model: Kelas,
-                    attributes: ['id', 'name_kelas'],
-                    as: "kelas"
-                },
-                {
-                    model: TahunAjar,
-                    attributes: ['id', 'semester', 'semester_aktif', 'thn_ajaran'],
-                    as: "thn_ajar"
-                },
-                {
-                    model: User,
-                    attributes: ['username', 'email'],
-                    as: "user"
                 },
             ]
         });
@@ -104,21 +70,67 @@ exports.getNKById = async (req, res) => {
     }
 }
 
+// exports.createNK = async (req, res) => {
+//     const { proses1, proses2, proses3, proses4, proses5, proses6, proses7, proses8, proyek1, proyek2, proyek3, proyek4, proyek5, proyek6, proyek7, proyek8, produk1, produk2, produk3, produk4, produk5, produk6, produk7, produk8, } = req.body;
+//     const siswa = await Siswa.findByPk(req.params.siswaId);
+//     if (!siswa) {
+//         return res.status(404).json({ message: 'Siswa tidak ditemukan' });
+//     }
+//     try {
+//         await NK.create({
+//             siswaId: siswa.id,
+//             guruId: req.userId,
+//             proses1: proses1,
+//             proses2: proses2,
+//             proses3: proses3,
+//             proses4: proses4,
+//             proses5: proses5,
+//             proses6: proses6,
+//             proses7: proses7,
+//             proses8: proses8,
+//             proyek1: proyek1,
+//             proyek2: proyek2,
+//             proyek3: proyek3,
+//             proyek4: proyek4,
+//             proyek5: proyek5,
+//             proyek6: proyek6,
+//             proyek7: proyek7,
+//             proyek8: proyek8,
+//             produk1: produk1,
+//             produk2: produk2,
+//             produk3: produk3,
+//             produk4: produk4,
+//             produk5: produk5,
+//             produk6: produk6,
+//             produk7: produk7,
+//             produk8: produk8,
+//         });
+//         res.status(201).json({ msg: "Nilai Created" });
+//     } catch (error) {
+//         res.status(500).json({ msg: error.message });
+//     }
+// }
+
+
 exports.createNK = async (req, res) => {
-    const { kelasId, thnAjarId, mapelId, siswaId, guruId, proses1, proses2, proses3, proses4, proses5, proses6, proses7, proses8, proyek1, proyek2, proyek3, proyek4, proyek5, proyek6, proyek7, proyek8, produk1, produk2, produk3, produk4, produk5, produk6, produk7, produk8, } = req.body;
-    const siswa = await NK.findOne({
-        where: {
-            siswaId: req.body.siswaId
-        }
-    });
-    if (siswa) return res.status(404).json({ msg: 'Siswa Yang Anda Masukkan Sudah Tersedia...' });
+    const { proses1, proses2, proses3, proses4, proses5, proses6, proses7, proses8, proyek1, proyek2, proyek3, proyek4, proyek5, proyek6, proyek7, proyek8, produk1, produk2, produk3, produk4, produk5, produk6, produk7, produk8, } = req.body;
+    // const siswa = await Siswa.findByPk(req.params.siswaId);
+    // if (!siswa) {
+    //     return res.status(404).json({ message: 'Siswa tidak ditemukan' });
+    // }
+    const siswaId = req.params.siswaId;
     try {
+        const guru = await Guru.findOne({
+            where: { userId: req.userId }
+        });
+
+        if (!guru) {
+            return res.status(403).json({ error: 'Anda tidak memiliki izin untuk menilai siswa ini.' });
+        }
+
         await NK.create({
-            kelasId: kelasId,
-            thnAjarId: thnAjarId,
-            mapelId: mapelId,
-            guruId: guruId,
             siswaId: siswaId,
+            guruId: guru.id,
             proses1: proses1,
             proses2: proses2,
             proses3: proses3,
@@ -143,11 +155,10 @@ exports.createNK = async (req, res) => {
             produk6: produk6,
             produk7: produk7,
             produk8: produk8,
-            userId: req.userId
         });
         res.status(201).json({ msg: "Nilai Created" });
     } catch (error) {
-        res.status(500).json({ msg: "Form dibawah tidak boleh kosong..." });
+        res.status(500).json({ msg: error.message });
     }
 }
 
