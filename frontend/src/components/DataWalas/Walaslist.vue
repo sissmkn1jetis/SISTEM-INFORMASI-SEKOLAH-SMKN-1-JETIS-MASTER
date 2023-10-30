@@ -39,22 +39,32 @@
                   <table id="myTable" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>No</th>
-                        <th>NIP</th>
-                        <th>Guru</th>
-                        <th>Kelas</th>
-                        <th>Status</th>
-                        <th>Tahun Ajaran</th>
-                        <th>Action</th>
+                        <th class="align-middle text-center">No</th>
+                        <th class="align-middle text-center">NIP</th>
+                        <th class="align-middle text-center">Nama</th>
+                        <th class="align-middle text-center">Kelas</th>
+                        <th class="align-middle text-center">Status</th>
+                        <th class="align-middle text-center">Tahun Ajaran</th>
+                        <th class="align-middle text-center">UserId</th>
+                        <th class="align-middle text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(walass, index) in walas" :key="index.id">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ walass.guru.nip }}</td>
-                        <td>{{ walass.guru.name }}</td>
-                        <td>{{ walass.kelas.name_kelas }}</td>
+                        <td class="align-middle text-center">
+                          {{ index + 1 }}
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ walass.guru.nip }}
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ walass.guru.nama }}
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ walass.kelas.name_kelas }}
+                        </td>
                         <td
+                          class="align-middle text-center"
                           v-if="
                             walass.thn_ajar &&
                             walass.thn_ajar.semester_aktif === 'aktif'
@@ -66,6 +76,7 @@
                         </td>
 
                         <td
+                          class="align-middle text-center"
                           v-if="
                             walass.thn_ajar &&
                             walass.thn_ajar.semester_aktif === 'tidak-aktif'
@@ -75,8 +86,13 @@
                             walass.thn_ajar.semester_aktif
                           }}</span>
                         </td>
-                        <td>{{ walass.thn_ajar.thn_ajaran }}</td>
-                        <td>
+                        <td class="align-middle text-center">
+                          {{ walass.thn_ajar.thn_ajaran }}
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ walass.user.username }}
+                        </td>
+                        <td class="align-middle text-center">
                           <a
                             href="#"
                             class="badge bg-info mr-2"
@@ -165,7 +181,7 @@
                               :key="guru.id"
                               :value="guru.id"
                             >
-                              {{ guru.name }}
+                              {{ guru.nama }}
                             </option>
                           </select>
                         </div>
@@ -178,7 +194,7 @@
                             v-model="form.guruId"
                             disabled
                           >
-                            <!-- <option disabled value="">-- Pilih --</option> -->
+                            <option disabled value="">-- Pilih --</option>
                             <option
                               v-for="guru in gurus"
                               :key="guru.id"
@@ -191,40 +207,70 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
-                      <label>Kelas</label>
-                      <select
-                        class="form-control select2"
-                        v-model="form.kelassId"
-                        required
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="kelassId"
+                        >Kelas</label
                       >
-                        <option disabled value="">-- Pilih --</option>
-                        <option
-                          v-for="kelass in kelas"
-                          :key="kelass.id"
-                          :value="kelass.id"
+                      <div class="col-sm-9">
+                        <select
+                          class="form-control select2"
+                          v-model="form.kelassId"
+                          required
                         >
-                          {{ kelass.name_kelas }}
-                        </option>
-                      </select>
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="kelass in kelas"
+                            :key="kelass.id"
+                            :value="kelass.id"
+                          >
+                            {{ kelass.name_kelas }}
+                          </option>
+                        </select>
+                      </div>
                     </div>
 
-                    <div class="form-group">
-                      <label>Tahun Ajaran</label>
-                      <select
-                        class="form-control select2"
-                        v-model="form.thnAjarId"
-                        required
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="thn_ajaran"
+                        >Tahun Ajaran</label
                       >
-                        <option disabled value="">-- Pilih --</option>
-                        <option
-                          v-for="thn_ajar in thn_ajars"
-                          :key="thn_ajar.id"
-                          :value="thn_ajar.id"
+                      <div class="col-sm-9">
+                        <select
+                          class="form-control select2"
+                          v-model="form.thnAjarId"
+                          required
                         >
-                          {{ thn_ajar.thn_ajaran }}
-                        </option>
-                      </select>
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="thn_ajar in thn_ajars"
+                            :key="thn_ajar.id"
+                            :value="thn_ajar.id"
+                          >
+                            {{ thn_ajar.thn_ajaran }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="userId"
+                        >UserId:</label
+                      >
+                      <div class="col-sm-9">
+                        <select
+                          class="form-control select2"
+                          v-model="form.userId"
+                          required
+                        >
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="user in filterRoleWalas"
+                            :key="user.id"
+                            :value="user.id"
+                          >
+                            {{ user.username }}
+                          </option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -269,6 +315,7 @@ import WalasService from "../../services/walas.service";
 import KelasService from "../../services/kelas.service";
 import TahunAjarService from "../../services/thn_ajar.service";
 import GuruService from "../../services/guru.service";
+import UserService from "../../services/user.service";
 import Swal from "sweetalert2";
 export default {
   data() {
@@ -278,13 +325,15 @@ export default {
       walas: {},
       thn_ajars: {},
       kelas: {},
-      gurus: {},
+      users: [],
+      gurus: [],
       statusmodal: false,
       form: {
         id: "",
         guruId: "",
         kelassId: "",
         thnAjarId: "",
+        userId: "",
       },
       message: "",
     };
@@ -292,6 +341,9 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    filterRoleWalas() {
+      return this.users.filter((user) => user.role === "walas");
     },
   },
   created() {
@@ -336,6 +388,14 @@ export default {
       KelasService.getKelas()
         .then((response) => {
           this.kelas = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+      UserService.getUser()
+        .then((response) => {
+          this.users = response.data;
         })
         .catch((e) => {
           console.log(e);
@@ -477,9 +537,10 @@ export default {
     },
 
     resetForm() {
-      (this.form.guruId = ""),
-        (this.form.kelassId = ""),
-        (this.form.thnAjarId = "");
+      // (this.form.guruId = ""),
+      (this.form.kelassId = ""),
+        (this.form.thnAjarId = ""),
+        (this.form.userId = "");
     },
   },
 };

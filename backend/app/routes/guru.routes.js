@@ -12,31 +12,37 @@ module.exports = function (app) {
 
   app.get(
     "/api/test/listguru",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.getGuru
   );
 
   app.get(
     "/api/test/listguru/:id",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.getGuruById
   );
 
   app.post(
     "/api/test/listguru",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.createGuru
   );
 
   app.patch(
     "/api/test/listguru/:id",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.updateGuru
   );
 
   app.delete(
     "/api/test/listguru/:id",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.deleteGuru
   );
+
+  // app.post(
+  //   "/api/test/addgurukelas/:guruId",
+  //   // [authJwt.verifyToken, authJwt.isAdmin],
+  //   controller.addKelas
+  // );
 };

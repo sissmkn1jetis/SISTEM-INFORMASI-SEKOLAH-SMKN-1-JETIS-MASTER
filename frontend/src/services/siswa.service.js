@@ -13,6 +13,9 @@ class SiswaService {
     createSiswa(data) {
         return api.post("/test/listsiswa", data);
     }
+    createNK(siswaId, data) {
+        return api.post(`/test/listnk/${siswaId}`, data);
+    }
     updateSiswa(id, data) {
         return api.patch(`/test/listsiswa/${id}`, data);
     }

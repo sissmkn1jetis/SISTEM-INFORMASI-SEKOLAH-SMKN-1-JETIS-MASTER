@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors");
 
@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors({
   credentials: true,
-  //origin: 'http://localhost:8081'
+  origin: 'http://localhost:8081',
 }));
 
 // parse requests of content-type - application/json
@@ -44,10 +44,14 @@ require('./app/routes/thn_ajar.routes')(app);
 require('./app/routes/siswa.routes')(app);
 require('./app/routes/walas.routes')(app);
 require('./app/routes/nk.routes')(app);
+require('./app/routes/np.routes')(app);
 require('./app/routes/tempat_prakerin.routes')(app);
 require('./app/routes/absensi.routes')(app);
 require('./app/routes/jurnal_harian.routes')(app);
 require('./app/routes/izin.routes')(app);
+require('./app/routes/cetakpdfnk.routes')(app);
+require('./app/routes/cetakpdfnp.routes')(app);
+require('./app/routes/dashboard.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

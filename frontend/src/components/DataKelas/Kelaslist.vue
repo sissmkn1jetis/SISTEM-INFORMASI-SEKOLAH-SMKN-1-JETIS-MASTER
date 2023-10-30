@@ -164,6 +164,54 @@
                         </select>
                       </div>
                     </div>
+                    <div class="form-group row">
+                      <!-- <div v-for="kelass in kelas" :key="kelass.id">
+                        <input
+                          type="checkbox"
+                          :id="kelass.id"
+                          :value="kelass"
+                          v-model="form.kelasId"
+                        />
+                        <label :for="kelass.id">{{ kelass.name_kelas }}</label>
+                      </div>
+                      <div>
+                        Selected Options:
+                        <ul>
+                          <li v-for="kelass in form.kelasId" :key="kelass.id">
+                            {{ kelass.name_kelas }}
+                          </li>
+                        </ul>
+                      </div> -->
+                      <!-- <label class="col-sm-3 col-form-label" for="guruId"
+                        >Guru Pengajar:</label
+                      >
+                      <div class="col-sm-9">
+                        <select
+                          class="form-control select2"
+                          v-model="form.guruId"
+                          required
+                        >
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="guru in gurus"
+                            :key="guru.id"
+                            :value="guru.id"
+                          >
+                            {{ guru.nama }}
+                          </option>
+                        </select>
+                        <div v-for="guru in gurus" :key="guru.id">
+                          <label>
+                            <input
+                              type="checkbox"
+                              v-model="form.guruId"
+                              :value="guru.id"
+                            />
+                            {{ guru.nama }}
+                          </label>
+                        </div>
+                      </div> -->
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button
@@ -282,6 +330,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+
       this.$Progress.finish();
     },
     getKelasById(id) {

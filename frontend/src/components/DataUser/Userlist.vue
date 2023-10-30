@@ -41,7 +41,7 @@
                       <tr>
                         <th class="align-middle text-center">No</th>
                         <th class="align-middle text-center">Username</th>
-                        <th class="align-middle text-center">Email</th>
+                        <!-- <th class="align-middle text-center">Email</th> -->
                         <th class="align-middle text-center">Role</th>
                         <th class="align-middle text-center">Action</th>
                       </tr>
@@ -54,9 +54,9 @@
                         <td class="align-middle text-center">
                           {{ user.username }}
                         </td>
-                        <td class="align-middle text-center">
+                        <!-- <td class="align-middle text-center">
                           {{ user.email }}
-                        </td>
+                        </td> -->
                         <td
                           class="align-middle text-center"
                           v-if="user && user.role === 'guru'"
@@ -162,6 +162,11 @@
                           v-model="form.username"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="validationErrors && validationErrors.username"
+                          >{{ validationErrors.username }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -177,6 +182,13 @@
                           v-model="form.tempat_lahir"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="
+                            validationErrors && validationErrors.tempat_lahir
+                          "
+                          >{{ validationErrors.tempat_lahir }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -192,6 +204,13 @@
                           v-model="form.tanggal_lahir"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="
+                            validationErrors && validationErrors.tanggal_lahir
+                          "
+                          >{{ validationErrors.tanggal_lahir }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -221,6 +240,13 @@
                           />
                           Perempuan
                         </label>
+                        <span
+                          class="alert-danger"
+                          v-if="
+                            validationErrors && validationErrors.jenis_kelamin
+                          "
+                          >{{ validationErrors.jenis_kelamin }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -236,6 +262,11 @@
                           v-model="form.agama"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="validationErrors && validationErrors.agama"
+                          >{{ validationErrors.agama }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -251,9 +282,14 @@
                           v-model="form.alamat"
                           required
                         ></textarea>
+                        <span
+                          class="alert-danger"
+                          v-if="validationErrors && validationErrors.alamat"
+                          >{{ validationErrors.alamat }}</span
+                        >
                       </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                       <label class="col-sm-3 col-form-label" for="almt_kel"
                         >Kelurahan:</label
                       >
@@ -327,7 +363,7 @@
                           required
                         />
                       </div>
-                    </div>
+                    </div> -->
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label" for="password"
                         >Password:</label
@@ -341,6 +377,11 @@
                           v-model="form.password"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="validationErrors && validationErrors.password"
+                          >{{ validationErrors.password }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -356,6 +397,13 @@
                           v-model="form.confPassword"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="
+                            validationErrors && validationErrors.confPassword
+                          "
+                          >{{ validationErrors.confPassword }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -374,6 +422,11 @@
                           <option value="walas">Walas</option>
                           <option value="kabeng">Kabeng</option>
                         </select>
+                        <span
+                          class="alert-danger"
+                          v-if="validationErrors && validationErrors.role"
+                          >{{ validationErrors.role }}</span
+                        >
                       </div>
                     </div>
                     <div class="form-group row">
@@ -389,6 +442,11 @@
                           v-model="form.no_telp"
                           required
                         />
+                        <span
+                          class="alert-danger"
+                          v-if="validationErrors && validationErrors.no_telp"
+                          >{{ validationErrors.no_telp }}</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -433,6 +491,7 @@
 <script>
 import User from "../../services/user.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -444,7 +503,6 @@ export default {
       form: {
         id: "",
         username: "",
-        email: "",
         password: "",
         confPassword: "",
         role: "",
@@ -453,12 +511,9 @@ export default {
         jenis_kelamin: "",
         agama: "",
         alamat: "",
-        almt_kel: "",
-        almt_kec: "",
-        almt_kab: "",
-        almt_prov: "",
         no_telp: "",
       },
+      validationErrors: null,
     };
   },
   computed: {
@@ -521,10 +576,73 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        username: Joi.string().required().label("Username"),
+        tempat_lahir: Joi.string().required().label("Tempat Lahir"),
+        tanggal_lahir: Joi.date().iso().required().label("Tanggal Lahir"),
+        jenis_kelamin: Joi.string()
+          .valid("L", "P")
+          .required()
+          .label("Jenis Kelamin"),
+        agama: Joi.string().required().label("Agama"),
+        alamat: Joi.string().required().label("Alamat"),
+        password: Joi.string().min(8).required().label("Password").messages({
+          "string.min": "Password yang anda masukkan kurang dari 8 karakter",
+        }),
+        confPassword: Joi.any()
+          .valid(Joi.ref("password"))
+          .required()
+          .label("Confirm Password")
+          .messages({ "any.only": "Confirm Password Tidak Cocok" }),
+        role: Joi.string()
+          .valid("admin", "guru", "walas", "kabeng")
+          .required()
+          .label("Role"),
+        no_telp: Joi.string().required().label("No.Tlp"),
+      });
+
+      const { error } = schema.validate(data);
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        username: this.form.username,
+        tempat_lahir: this.form.tempat_lahir,
+        tanggal_lahir: this.form.tanggal_lahir,
+        jenis_kelamin: this.form.jenis_kelamin,
+        agama: this.form.agama,
+        alamat: this.form.alamat,
+        password: this.form.password,
+        confPassword: this.form.confPassword,
+        role: this.form.role,
+        no_telp: this.form.no_telp,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       User.createUser(this.form)
         .then((response) => {
           this.from = response.data;
@@ -567,6 +685,38 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        username: this.form.username,
+        tempat_lahir: this.form.tempat_lahir,
+        tanggal_lahir: this.form.tanggal_lahir,
+        jenis_kelamin: this.form.jenis_kelamin,
+        agama: this.form.agama,
+        alamat: this.form.alamat,
+        password: this.form.password,
+        confPassword: this.form.confPassword,
+        role: this.form.role,
+        no_telp: this.form.no_telp,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       User.updateUser(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;

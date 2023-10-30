@@ -1,5 +1,5 @@
 const db = require("../models");
-const { kelas: Kelas, jurusan: Jurusan, siswa: Siswa } = db;
+const { kelas: Kelas, jurusan: Jurusan, siswa: Siswa, guru: Guru } = db;
 
 exports.getKelas = async (req, res) => {
     try {
@@ -15,6 +15,14 @@ exports.getKelas = async (req, res) => {
                     model: Siswa,
                     attributes: ['id', 'nis', 'name'],
                     as: "siswa",
+                },
+                {
+                    model: Guru,
+                    as: "guru",
+                    attributes: ['id', 'nip', 'nama', 'mapelId', 'thnAjarId', 'userId'],
+                    through: {
+                        attributes: [],
+                    }
                 },
 
             ]

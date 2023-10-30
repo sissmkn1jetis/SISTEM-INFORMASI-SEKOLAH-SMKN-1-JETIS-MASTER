@@ -41,7 +41,10 @@
                       <tr>
                         <th class="align-middle text-center">No</th>
                         <th class="align-middle text-center">NIP</th>
+                        <th class="align-middle text-center">Nama</th>
                         <th class="align-middle text-center">Bidang Studi</th>
+                        <th class="align-middle text-center">Mengajar Kelas</th>
+                        <th class="align-middle text-center">Tahun Ajaran</th>
                         <th class="align-middle text-center">UserId</th>
                         <th class="align-middle text-center">Action</th>
                       </tr>
@@ -53,7 +56,18 @@
                         </td>
                         <td class="align-middle text-center">{{ guru.nip }}</td>
                         <td class="align-middle text-center">
-                          {{ guru.bidang_studi }}
+                          {{ guru.nama }}
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ guru.mapel.name_mapel }}
+                        </td>
+                        <td class="align-middle text-center">
+                          <li v-for="tes in guru.kelas" :key="tes.id">
+                            {{ tes.name_kelas }}
+                          </li>
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ guru.thn_ajar.thn_ajaran }}
                         </td>
                         <td class="align-middle text-center">
                           {{ guru.user.username }}
@@ -142,18 +156,112 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label" for="bidang_studi"
-                        >Bidang Studi:</label
+                      <label class="col-sm-3 col-form-label" for="nama"
+                        >Nama:</label
                       >
                       <div class="col-sm-9">
                         <input
                           type="text"
                           class="form-control"
-                          id="bidang_studi"
-                          placeholder="Bidang Studi"
-                          v-model="form.bidang_studi"
+                          id="nama"
+                          placeholder="Nama"
+                          v-model="form.nama"
                           required
                         />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="mapelId"
+                        >Bidang Studi:</label
+                      >
+                      <div class="col-sm-9">
+                        <select
+                          class="form-control select2"
+                          v-model="form.mapelId"
+                          required
+                        >
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="mapel in mapels"
+                            :key="mapel.id"
+                            :value="mapel.id"
+                          >
+                            {{ mapel.name_mapel }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <!-- <div v-for="kelass in kelas" :key="kelass.id">
+                        <input
+                          type="checkbox"
+                          :id="kelass.id"
+                          :value="kelass"
+                          v-model="isikelas.kelasId"
+                        />
+                        <label :for="kelass.id">{{ kelass.name_kelas }}</label>
+                      </div>
+                      <div>
+                        Selected Options:
+                        <ul>
+                          <li
+                            v-for="kelass in isikelas.kelasId"
+                            :key="kelass.id"
+                          >
+                            {{ kelass.name_kelas }}
+                          </li>
+                        </ul>
+                      </div> -->
+                      <label class="col-sm-3 col-form-label" for="kelasId"
+                        >Kelas:</label
+                      >
+                      <div class="col-sm-9">
+                        <!-- <select
+                          class="form-control select2"
+                          v-model="form.kelasId"
+                          required
+                        >
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="kelass in kelas"
+                            :key="kelass.id"
+                            :value="kelass.id"
+                          >
+                            {{ kelass.name_kelas }}
+                          </option>
+                        </select> -->
+                        <div v-for="kelass in kelas" :key="kelass.id">
+                          <label>
+                            <input
+                              type="checkbox"
+                              :id="kelass.id"
+                              :value="kelass.name_kelas"
+                              v-model="kelasId"
+                            />
+                            {{ kelass.name_kelas }}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label" for="thn_ajaran"
+                        >Tahun Ajaran</label
+                      >
+                      <div class="col-sm-9">
+                        <select
+                          class="form-control select2"
+                          v-model="form.thnAjarId"
+                          required
+                        >
+                          <option disabled value="">-- Pilih --</option>
+                          <option
+                            v-for="thn_ajar in thn_ajars"
+                            :key="thn_ajar.id"
+                            :value="thn_ajar.id"
+                          >
+                            {{ thn_ajar.thn_ajaran }}
+                          </option>
+                        </select>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -218,6 +326,9 @@
 <script>
 import GuruService from "../../services/guru.service";
 import UserService from "../../services/user.service";
+import KelasService from "../../services/kelas.service";
+import TahunAjarService from "../../services/thn_ajar.service";
+import MapelService from "../../services/mapel.service";
 import Swal from "sweetalert2";
 export default {
   data() {
@@ -226,14 +337,20 @@ export default {
       disabled: false,
       gurus: {},
       users: [],
+      mapels: {},
+      thn_ajars: {},
+      kelas: [],
       statusmodal: false,
       message: "",
       form: {
         id: "",
         nip: "",
-        bidang_studi: "",
+        nama: "",
+        mapelId: "",
+        thnAjarId: "",
         userId: "",
       },
+      kelasId: [],
     };
   },
   computed: {
@@ -276,7 +393,7 @@ export default {
           //     .appendTo("#myTable_wrapper .col-md-6:eq(0)");
           // });
           $(document).ready(function () {
-            $("#myTable").dataTable();
+            $("#myTable").DataTable();
           });
         })
         .catch((e) => {
@@ -289,6 +406,30 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+
+      KelasService.getKelas()
+        .then((response) => {
+          this.kelas = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      TahunAjarService.getTahunAjar()
+        .then((response) => {
+          this.thn_ajars = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+      MapelService.getMapel()
+        .then((response) => {
+          this.mapels = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
       this.$Progress.finish();
     },
     getGuruById(id) {
@@ -305,9 +446,16 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
-      GuruService.createGuru(this.form)
+      GuruService.createGuru({
+        id: this.form.id,
+        nip: this.form.nip,
+        nama: this.form.nama,
+        mapelId: this.form.mapelId,
+        thnAjarId: this.form.thnAjarId,
+        userId: this.form.userId,
+        kelasId: this.kelasId,
+      })
         .then((response) => {
-          this.from = response.data;
           console.log(response.data);
           this.getdata();
           this.resetForm();
@@ -347,9 +495,16 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
-      GuruService.updateGuru(this.form.id, this.form)
+      GuruService.updateGuru(this.form.id, {
+        id: this.form.id,
+        nip: this.form.nip,
+        nama: this.form.nama,
+        mapelId: this.form.mapelId,
+        thnAjarId: this.form.thnAjarId,
+        userId: this.form.userId,
+        kelasId: this.kelasId,
+      })
         .then((response) => {
-          this.from = response.data;
           console.log(response.data);
           this.getdata();
           this.resetForm();
@@ -413,7 +568,10 @@ export default {
     resetForm() {
       (this.message = ""),
         (this.form.nip = ""),
-        (this.form.bidang_studi = ""),
+        (this.form.nama = ""),
+        (this.form.mapelId = ""),
+        (this.kelasId = []),
+        (this.form.thnAjarId = ""),
         (this.form.userId = "");
     },
   },

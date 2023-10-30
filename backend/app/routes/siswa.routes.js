@@ -12,13 +12,13 @@ module.exports = function (app) {
 
     app.get(
         "/api/test/listsiswa",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getSiswa
     );
 
     app.get(
         "/api/test/listsiswa/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getSiswaById
     );
 
@@ -30,19 +30,19 @@ module.exports = function (app) {
 
     app.post(
         "/api/test/listsiswa",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.createSiswa
     );
 
     app.patch(
         "/api/test/listsiswa/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.updateSiswa
     );
 
     app.delete(
         "/api/test/listsiswa/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteSiswa
     );
 };

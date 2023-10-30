@@ -14,6 +14,13 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
+        // guruId: {
+        //     type: Sequelize.INTEGER,
+        //     allowNull: false,
+        //     validate: {
+        //         notEmpty: true
+        //     }
+        // },
     });
 
     return Kelas;

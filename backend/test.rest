@@ -52,12 +52,16 @@ POST http://localhost:8080/api/auth/signin
 Content-Type: application/json
 
 {
-    "username": "admin",
+    "username": "walas",
     "password": "12345678"
 }
 
 
 
+###
+//me
+GET http://localhost:8080/api/auth/me/walas
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjk1Nzk1ODg5LCJleHAiOjE2OTU3OTk0ODl9.Aqe4uz2AWT1AYPdmqh4CLgGStoAckoiaZSEHO_DX6PE
 
 
 
@@ -69,10 +73,25 @@ Content-Type: application/json
 
 
 
+###
+//create User pada admin
+POST http://localhost:8080/api/pdfnilaiketrampilan
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjk1MTIyNDAxLCJleHAiOjE2OTUxMjYwMDF9._5TQHuB_XciaPEAFlfjH2MMxPDgW0K68J29IYjCYTEw
+Content-Type: application/pdf
 
+{
+    "selectedMapel": 1,
+}
 
+###
+//create User pada admin
+GET http://localhost:8080/api/pdfnilaiketrampilan
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjk0NDQxMTI1LCJleHAiOjE2OTQ0NDQ3MjV9.zUVthKTCTDl2_pMoo3tg-gbAhQaQ1tyWqG8CqpNQjy8
+Content-Type: application/pdf
 
-
+{
+    "selectedMapel": 1,
+}
 
 ###
 //Get guru
@@ -81,10 +100,11 @@ GET http://localhost:8080/api/auth/me
 ###
 //Get guru
 GET http://localhost:8080/api/test/listguru
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjkxNjY4NjA4LCJleHAiOjE2OTE2NzIyMDh9.2Zu_JfvL61JY1kaZlMfFNBbTpbTJ7EuAGO_Rxme4NWM
 
 ###
 //Get gurubyid
-GET http://localhost:8080/api/test/listguru/2
+GET http://localhost:8080/api/test/listguru/16
 
 ###
 //Create Guru
@@ -92,30 +112,31 @@ POST http://localhost:8080/api/test/listguru
 Content-Type: application/json
 
 {
-    "nip": 10005,
-    "name": "Kang Dikdik",
-    "tgl_lahir": "2000-08-20",
-    "jkg": "laki-laki",
-    "alamat": "Kota Bikini bottom"
+    "nip": 1110003,
+    "nama": "Kang Gobang",
+    "mapelId": 4,
+    "thnAjarId": 1,
+    "userId": 4,
+    "kelasId": ["X MM 1", "X MM 2", "X MM 3"]
 }
 
 ###
 //Updated Guru
-PATCH http://localhost:8080/api/test/listguru/1
+PATCH http://localhost:8080/api/test/listguru/14
 Content-Type: application/json
 
 {
-    "id": 1,
-    "nip": 10001,
-    "name": "Ujang updated",
-    "tgl_lahir": "2000-08-19",
-    "jkg": "laki-laki",
-    "alamat": "Kota Bikini bottom"
+    "nip": 1110003,
+    "nama": "Kang Gobang",
+    "mapelId": 4,
+    "thnAjarId": 1,
+    "userId": 4,
+    "kelasId": ["X MM 1"]
 }
 
 ###
 //Get delete guru
-DELETE http://localhost:8080/api/test/listguru/1
+DELETE http://localhost:8080/api/test/listguru/8
 
 ###
 //Get All user
@@ -123,7 +144,7 @@ GET http://localhost:8080/api/test/user
 
 ###
 //Get One user
-GET http://localhost:8080/api/test/user/1
+GET http://localhost:8080/api/test/user/2
 
 ###
 //create User pada admin
@@ -145,20 +166,15 @@ POST http://localhost:8080/api/test/user
 Content-Type: application/json
 
 {
-    "username": "admin",
-    "email": "admin@gmail.com",
+    "username": "walas",
     "password": "12345678",
     "confPassword": "12345678",
-    "role": "admin",
+    "role": "walas",
     "tempat_lahir": "Konoha", 
     "tanggal_lahir": "2000-08-19", 
     "jenis_kelamin": "L", 
     "agama": "Islam",
     "alamat": "Jalan Manggis GG Gajah", 
-    "almt_kel": "Konoha", 
-    "almt_kec": "Konoha", 
-    "almt_kab": "Kota Konoha", 
-    "almt_prov": "Konoha",
     "no_telp": "08123456789"
 }
 
@@ -233,7 +249,7 @@ GET http://localhost:8080/api/test/listmapel
 
 ###
 //Get All user
-GET http://localhost:8080/api/test/listguru/2
+GET http://localhost:8080/api/test/listguru
 
 ###
 //create User pada admin
@@ -276,7 +292,7 @@ Content-Type: application/json
 ###
 //create User pada admin
 GET http://localhost:8080/api/test/listjurusan
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc5ODM2MDAxLCJleHAiOjE2Nzk4Mzk2MDF9.q1P71Qu6qj1r5UnNDX4m4GuQ1pLLjlimhep_nooW-gw
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkzMDMyNzQ5LCJleHAiOjE2OTMwMzYzNDl9.0cWSGc2c_Bm-NEUVZUn96ofn2LLEnBz-tOOaGNS_M-g
 
 
 ###
@@ -319,7 +335,8 @@ Content-Type: application/json
 
 {
     "name_kelas": "10",
-    "jurusanId": 1
+    "jurusanId": 1,
+    "guruId": [1,2]
 }
 
 ###
@@ -329,6 +346,7 @@ GET http://localhost:8080/api/test/listtempatp
 ###
 //get siswa
 GET http://localhost:8080/api/test/listsiswa
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkxNjUxNjgwLCJleHAiOjE2OTE2NTUyODB9.7OZAIi_8ldbiR4ApzXf5eSk_WVoWGVhnFITvPHASYT0
 
 ###
 //get absensi
@@ -374,9 +392,129 @@ Content-Type: application/json
 //get izin
 GET http://localhost:8080/api/test/listizin
 
+
+###
+//get walas
+GET http://localhost:8080/api/test/listwalas
+
+###
+//get walas by id
+GET http://localhost:8080/api/test/listwalas/1
+
+###
+//create walas
+POST http://localhost:8080/api/test/listwalas
+Content-Type: application/json
+
+{
+    "kelassId": 1,
+    "thnAjarId": 1,
+    "userId": 2,
+}
+
+###
+//get gurukelas
+GET http://localhost:8080/api/test/listguru/3
+
+###
+//create gurukelas
+POST http://localhost:8080/api/test/addgurukelas/3
+Content-Type: application/json
+
+{
+    "kelasId": 1
+}
+
+
+###
+//get nilai ketrampilan
+GET http://localhost:8080/api/test/listnk
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkyMTEzNzUzLCJleHAiOjE2OTIxMTczNTN9.uBTIM6QcXck5RMmAuK2ZREgESYhSVgeWjizBPCN5N10
+
+
+###
+//create nilai ketrampilan
+POST http://localhost:8080/api/test/listnk/1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkyMTEzNzUzLCJleHAiOjE2OTIxMTczNTN9.uBTIM6QcXck5RMmAuK2ZREgESYhSVgeWjizBPCN5N10
+Content-Type: application/json
+
+{
+    "proses1": 90,
+    "proses2": 90,
+    "proses3": 90,
+    "proses4": 90,
+    "proses5": 90,
+    "proses6": 90,
+    "proses7": 90,
+    "proses8": 90,
+    "proyek1": 90,
+    "proyek2": 90,
+    "proyek3": 90,
+    "proyek4": 90,
+    "proyek5": 90,
+    "proyek6": 90,
+    "proyek7": 90,
+    "proyek8": 90,
+    "produk1": 90,
+    "produk2": 90,
+    "produk3": 90,
+    "produk4": 90,
+    "produk5": 90,
+    "produk6": 90,
+    "produk7": 90,
+    "produk8": 90
+}
+
+###
+//create nilai ketrampilan
+POST http://localhost:8080/api/test/listnp/1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkyMTEzNzUzLCJleHAiOjE2OTIxMTczNTN9.uBTIM6QcXck5RMmAuK2ZREgESYhSVgeWjizBPCN5N10
+Content-Type: application/json
+
+{
+    "uh1": 90,
+    "uh2": 90,
+    "uh3": 90,
+    "uh4": 90,
+    "uh5": 90,
+    "uh6": 90,
+    "uh7": 90,
+    "uh8": 90,
+    "th1": 90,
+    "th2": 90,
+    "th3": 90,
+    "th4": 90,
+    "th5": 90,
+    "th6": 90,
+    "th7": 90,
+    "th8": 90,
+    "uts": 90,
+    "uas": 90
+}
+
 ###
 //get izin
-PATCH http://localhost:8080/api/test/listizin/3
+GET http://localhost:8080/api/test/listizin
+
+###
+//get izin
+GET http://localhost:8080/api/test/listizin/1
+
+###
+//get izin
+POST http://localhost:8080/api/test/listizin
+Content-Type: application/json
+
+{
+  "siswaId": 1,
+  "tgl_izin": "2023-09-19",
+  "deskripsi": "Izin sakit",
+  "foto": "url_foto"
+}
+
+###
+//get izin
+PATCH http://localhost:8080/api/test/listizin/1
 Content-Type: application/json
 
 {
@@ -388,12 +526,14 @@ Content-Type: application/json
 
 ###
 //get izin
-PUT http://localhost:8080/api/test/listizin/3
-Content-Type: application/json
+DELETE http://localhost:8080/api/test/listizin/1
 
-{
-  "siswaId": 1,
-  "tgl_izin": "2023-09-19",
-  "deskripsi": "Izin Kepentingan Sakit",
-  "foto": "url_foto"
-}
+###
+//get izin
+GET http://localhost:8080/api/dashboardNilai
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjk1Nzk2MTM0LCJleHAiOjE2OTU3OTk3MzR9.hKDC7k-F4r9zzDTVwW6ejK2v0A0cKLtlheyZlgz8g3s
+
+###
+//get izin
+GET http://localhost:8080/api/dashboardSiswaWalas
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjk1Nzk4Mjg2LCJleHAiOjE2OTU4MDE4ODZ9.qNLyw4M_G0MHmHskrIuJmjj9qVt4gWUlMX4_ZRoQDd8

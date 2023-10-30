@@ -12,31 +12,31 @@ module.exports = function (app) {
 
     app.get(
         "/api/test/listthnajar",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getTahunAjar
     );
 
     app.get(
         "/api/test/listthnajar/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.getTahunAjarById
     );
 
     app.post(
         "/api/test/listthnajar",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.createTahunAjar
     );
 
     app.patch(
         "/api/test/listthnajar/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.updateTahunAjar
     );
 
     app.delete(
         "/api/test/listthnajar/:id",
-        // [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteTahunAjar
     );
 };

@@ -8,8 +8,17 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
-        bidang_studi: {
+        nama: {
             type: Sequelize.STRING,
+        },
+        mapelId: {
+            type: Sequelize.INTEGER,
+        },
+        // kelassId: {
+        //     type: Sequelize.INTEGER,
+        // },
+        thnAjarId: {
+            type: Sequelize.INTEGER,
         },
         userId: {
             type: Sequelize.INTEGER,
