@@ -41,13 +41,13 @@ exports.getIzinById = async (req, res) => {
 }
 
 exports.createIzin = async (req, res) => {
-    const { siswaId, tgl_izin, deskripsi, foto } = req.body;
+    const { siswaId, tgl_izin, deskripsi } = req.body;
     try {
         await Izin.create({
             siswaId: siswaId,
             tgl_izin: tgl_izin,
             deskripsi: deskripsi,
-            foto: foto,
+            foto: req.file.filename,
         });
         res.status(201).json({ msg: "Izin Created" });
     } catch (error) {
@@ -57,6 +57,12 @@ exports.createIzin = async (req, res) => {
 
 exports.updateIzin = async (req, res) => {
     try {
+        const izin = await Izin.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!izin) return res.status(404).json({ msg: "Data tidak ditemukan" });
         await Izin.update(req.body, {
             where: {
                 id: req.params.id

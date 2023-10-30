@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, uploadIzin } = require("../middleware");
 const controller = require("../controllers/izin.controller");
 
 module.exports = function (app) {
@@ -25,10 +25,17 @@ module.exports = function (app) {
     app.post(
         "/api/test/listizin",
         // [authJwt.verifyToken, authJwt.isAdmin],
+        uploadIzin.single('foto'), //upload ke izin, 'foto' nama field di db
         controller.createIzin
     );
 
     app.patch(
+        "/api/test/listizin/:id",
+        // [authJwt.verifyToken, authJwt.isAdmin],
+        controller.updateIzin
+    );
+
+    app.put(
         "/api/test/listizin/:id",
         // [authJwt.verifyToken, authJwt.isAdmin],
         controller.updateIzin

@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:8081'
+  //origin: 'http://localhost:8081'
 }));
 
 // parse requests of content-type - application/json
@@ -14,6 +14,8 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/uploads', express.static('uploads'));
 
 // database
 const db = require("./app/models");

@@ -373,3 +373,27 @@ Content-Type: application/json
 ###
 //get izin
 GET http://localhost:8080/api/test/listizin
+
+###
+//get izin
+PATCH http://localhost:8080/api/test/listizin/3
+Content-Type: application/json
+
+{
+  "siswaId": 1,
+  "tgl_izin": "2023-09-19",
+  "deskripsi": "Izin Kepentingan Keluarga",
+  "foto": "url_foto"
+}
+
+###
+//get izin
+PUT http://localhost:8080/api/test/listizin/3
+Content-Type: application/json
+
+{
+  "siswaId": 1,
+  "tgl_izin": "2023-09-19",
+  "deskripsi": "Izin Kepentingan Sakit",
+  "foto": "url_foto"
+}
