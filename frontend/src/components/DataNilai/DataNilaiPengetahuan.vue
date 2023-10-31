@@ -676,129 +676,147 @@ export default {
 
     validateData(data) {
       const schema = Joi.object({
-        uh1: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 1 harus berupa angka",
+        uh1: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 1 harus berupa angka dan from Ulangan Harian 1 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh2: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 2 harus berupa angka",
+        uh2: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 2 harus berupa angka dan from Ulangan Harian 2 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh3: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 3 harus berupa angka",
+        uh3: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 3 harus berupa angka dan from Ulangan Harian 3 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh4: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 4 harus berupa angka",
+        uh4: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 4 harus berupa angka dan from Ulangan Harian 4 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh5: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 5 harus berupa angka",
+        uh5: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 5 harus berupa angka dan from Ulangan Harian 5 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh6: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 6 harus berupa angka",
+        uh6: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 6 harus berupa angka dan from Ulangan Harian 6 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh7: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 7 harus berupa angka",
+        uh7: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 7 harus berupa angka dan from Ulangan Harian 7 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uh8: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Harian 8 harus berupa angka",
+        uh8: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Harian 8 harus berupa angka dan from Ulangan Harian 8 tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Harian 8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Harian 8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Harian 8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th1: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian1 harus berupa angka",
+        th1: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 1 harus berupa angka dan from Tugas Harian 1 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
-            "Tugas Harian1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
+            "Tugas Harian 1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th2: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 2 harus berupa angka",
+        th2: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 2 harus berupa angka dan from Tugas Harian 2 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th3: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 3 harus berupa angka",
+        th3: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 3 harus berupa angka dan from Tugas Harian 3 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th4: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 4 harus berupa angka",
+        th4: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 4 harus berupa angka dan from Tugas Harian 4 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th5: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 5 harus berupa angka",
+        th5: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 5 harus berupa angka dan from Tugas Harian 5 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th6: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 6 harus berupa angka",
+        th6: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 6 harus berupa angka dan from Tugas Harian 6 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th7: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 7 harus berupa angka",
+        th7: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 7 harus berupa angka dan from Tugas Harian 7 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        th8: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Tugas Harian 8 harus berupa angka",
+        th8: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Tugas Harian 8 harus berupa angka dan from Tugas Harian 8 tidak diperbolehkan kosong",
           "number.min":
-            "Tugas Harian 8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Tugas Harian 8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Tugas Harian 8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uts: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Tengah Semester harus berupa angka",
+        uts: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Tengah Semester harus berupa angka dan from Ulangan Tengah Semester tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Tengah Semester Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Tengah Semester Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Tengah Semester Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),
-        uas: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Ulangan Akhir Semester harus berupa angka",
+        uas: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Ulangan Akhir Semester harus berupa angka dan from Ulangan Akhir Semester tidak diperbolehkan kosong",
           "number.min":
-            "Ulangan Akhir Semester Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Ulangan Akhir Semester Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Ulangan Akhir Semester Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100 ",
         }),

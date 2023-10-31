@@ -753,171 +753,195 @@ export default {
 
     validateData(data) {
       const schema = Joi.object({
-        proses1: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "Proses1 harus berupa angka",
+        proses1: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses1 harus berupa angka dan form Proses1 tidak diperbolehkan kosong",
           "number.min":
-            "Proses1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "Proses1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "Proses1 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses2: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses2 harus berupa angka",
+        proses2: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses2 harus berupa angka dan form Proses2 tidak diperbolehkan kosong",
           "number.min":
-            "proses2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses2 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses3: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses3 harus berupa angka",
+        proses3: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses3 harus berupa angka dan form Proses3 tidak diperbolehkan kosong",
           "number.min":
-            "proses3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses3 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses4: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses4 harus berupa angka",
+        proses4: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses4 harus berupa angka dan form Proses4 tidak diperbolehkan kosong",
           "number.min":
-            "proses4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses4 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses5: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses5 harus berupa angka",
+        proses5: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses5 harus berupa angka dan form Proses5 tidak diperbolehkan kosong",
           "number.min":
-            "proses5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses5 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses6: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses6 harus berupa angka",
+        proses6: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses6 harus berupa angka dan form Proses6 tidak diperbolehkan kosong",
           "number.min":
-            "proses6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses6 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses7: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses7 harus berupa angka",
+        proses7: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses7 harus berupa angka dan form Proses7 tidak diperbolehkan kosong",
           "number.min":
-            "proses7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses7 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proses8: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proses8 harus berupa angka",
+        proses8: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proses8 harus berupa angka dan form Proses8 tidak diperbolehkan kosong",
           "number.min":
-            "proses8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proses8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proses8 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek1: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek1 harus berupa angka",
+        proyek1: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek1 harus berupa angka dan form Proyek1 tidak diperbolehkan kosong",
           "number.min":
-            "proyek1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek1 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek2: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek2 harus berupa angka",
+        proyek2: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek2 harus berupa angka dan form Proyek2 tidak diperbolehkan kosong",
           "number.min":
-            "proyek2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek2 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek3: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek3 harus berupa angka",
+        proyek3: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek3 harus berupa angka dan form Proyek3 tidak diperbolehkan kosong",
           "number.min":
-            "proyek3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek3 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek4: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek4 harus berupa angka",
+        proyek4: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek4 harus berupa angka dan form Proyek4 tidak diperbolehkan kosong",
           "number.min":
-            "proyek4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek4 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek5: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek5 harus berupa angka",
+        proyek5: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek5 harus berupa angka dan form Proyek5 tidak diperbolehkan kosong",
           "number.min":
-            "proyek5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek5 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek6: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek6 harus berupa angka",
+        proyek6: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek6 harus berupa angka dan form Proyek6 tidak diperbolehkan kosong",
           "number.min":
-            "proyek6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek6 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek7: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek7 harus berupa angka",
+        proyek7: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek7 harus berupa angka dan form Proyek7 tidak diperbolehkan kosong",
           "number.min":
-            "proyek7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek7 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        proyek8: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "proyek8 harus berupa angka",
+        proyek8: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Proyek8 harus berupa angka dan form Proyek8 tidak diperbolehkan kosong",
           "number.min":
-            "proyek8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "proyek8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "proyek8 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk1: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk1 harus berupa angka",
+        produk1: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk1 harus berupa angka dan form Produk1 tidak diperbolehkan kosong",
           "number.min":
-            "produk1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk1 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk1 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk2: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk2 harus berupa angka",
+        produk2: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk2 harus berupa angka dan form Produk2 tidak diperbolehkan kosong",
           "number.min":
-            "produk2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk2 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk2 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk3: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk3 harus berupa angka",
+        produk3: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk3 harus berupa angka dan form Produk3 tidak diperbolehkan kosong",
           "number.min":
-            "produk3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk3 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk3 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk4: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk4 harus berupa angka",
+        produk4: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk4 harus berupa angka dan form Produk4 tidak diperbolehkan kosong",
           "number.min":
-            "produk4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk4 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk4 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk5: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk5 harus berupa angka",
+        produk5: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk5 harus berupa angka dan form Produk5 tidak diperbolehkan kosong",
           "number.min":
-            "produk5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk5 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk5 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk6: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk6 harus berupa angka",
+        produk6: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk6 harus berupa angka dan form Produk6 tidak diperbolehkan kosong",
           "number.min":
-            "produk6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk6 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk6 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk7: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk7 harus berupa angka",
+        produk7: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk7 harus berupa angka dan form Produk7 tidak diperbolehkan kosong",
           "number.min":
-            "produk7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk7 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk7 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
-        produk8: Joi.number().integer().min(1).max(100).allow(null).messages({
-          "number.base": "produk8 harus berupa angka",
+        produk8: Joi.number().integer().min(0).max(100).allow(null).messages({
+          "number.base":
+            "Produk8 harus berupa angka dan form Produk8 tidak diperbolehkan kosong",
           "number.min":
-            "produk8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 1",
+            "produk8 Nilai Yang Anda Masukkan Tidak Memenuhi karena terlalu kecil yaitu kurang dari 0",
           "number.max":
             "produk8 hNilai Yang Anda Masukkan Tidak Memenuhi karena terlalu besar yaitu lebih besar dari 100",
         }),
