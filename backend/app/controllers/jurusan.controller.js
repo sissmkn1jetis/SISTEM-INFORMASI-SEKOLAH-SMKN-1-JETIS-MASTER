@@ -220,6 +220,12 @@ exports.getJurusanById = async (req, res) => {
 
 exports.createJurusan = async (req, res) => {
     const { name_jurusan } = req.body;
+    const jurusan = await Jurusan.findOne({
+        where: {
+            name_jurusan: req.body.name_jurusan
+        }
+    });
+    if (jurusan) return res.status(404).json({ msg: 'Jurusan Yang Anda Masukkan Sudah Tersedia...' });
     try {
         await Jurusan.create({
             name_jurusan: name_jurusan,

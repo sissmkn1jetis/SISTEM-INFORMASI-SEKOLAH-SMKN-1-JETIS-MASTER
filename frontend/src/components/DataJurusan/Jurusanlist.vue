@@ -117,19 +117,62 @@
                   @submit.prevent="statusmodal ? updateData() : simpanData()"
                 >
                   <div class="card-body">
+                    <div class="alert alert-danger" role="alert" v-if="message">
+                      <i class="fa fa-exclamation-circle"></i>
+                      {{ message }}
+                    </div>
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label" for="name_jurusan"
                         >Jurusan:</label
                       >
                       <div class="col-sm-9">
-                        <input
+                        <!-- <input
                           type="text"
                           class="form-control"
                           id="name_jurusan"
                           placeholder="Jurusan"
                           v-model="form.name_jurusan"
                           required
-                        />
+                        /> -->
+                        <select
+                          class="form-control"
+                          id="name_jurusan"
+                          v-model="form.name_jurusan"
+                        >
+                          <option value="" disabled>-- Pilih Jurusan --</option>
+                          <option value="Teknik Bodi Otomotif">
+                            Teknik Bodi Otomotif
+                          </option>
+                          <option value="Teknik Kendaraan Ringan">
+                            Teknik Kendaraan Ringan
+                          </option>
+                          <option value="Teknik dan Bisnis Sepeda Motor">
+                            Teknik dan Bisnis Sepeda Motor
+                          </option>
+                          <option value="Teknik Pengelasan">
+                            Teknik Pengelasan
+                          </option>
+                          <option value="Teknik Pemesinan">
+                            Teknik Pemesinan
+                          </option>
+                          <option value="Teknik Audio Video">
+                            Teknik Audio Video
+                          </option>
+                          <option value="Teknik Elektronika Industri">
+                            Teknik Elektronika Industri
+                          </option>
+                          <option value="Multimedia">Multimedia</option>
+                        </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="
+                            validationErrors && validationErrors.name_jurusan
+                          "
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.name_jurusan }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -173,6 +216,7 @@
 <script>
 import JurusanService from "../../services/jurusan.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -180,10 +224,12 @@ export default {
       disabled: false,
       jurusans: [],
       statusmodal: false,
+      message: "",
       form: {
         id: "",
         name_jurusan: "",
       },
+      validationErrors: null,
     };
   },
   computed: {
@@ -240,10 +286,45 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        name_jurusan: Joi.string().required().messages({
+          "string.empty": "Jurusan wajib diisi",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        name_jurusan: this.form.name_jurusan,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       JurusanService.createJurusan(this.form)
         .then((response) => {
           this.from = response.data;
@@ -276,12 +357,39 @@ export default {
           this.loading = false;
           this.disabled = false;
           console.log(e);
+          this.message =
+            (e.response && e.response.data && e.response.data.msg) ||
+            e.msg ||
+            e.toString();
         });
     },
     updateData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        name_jurusan: this.form.name_jurusan,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       JurusanService.updateJurusan(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;
@@ -314,6 +422,10 @@ export default {
           this.loading = false;
           this.disabled = false;
           console.log(e);
+          this.message =
+            (e.response && e.response.data && e.response.data.msg) ||
+            e.msg ||
+            e.toString();
         });
     },
 
@@ -342,7 +454,10 @@ export default {
     },
 
     resetForm() {
-      (this.form.id = ""), (this.form.name_jurusan = "");
+      (this.form.id = ""),
+        (this.form.name_jurusan = ""),
+        (this.validationErrors = ""),
+        (this.message = "");
     },
   },
 };

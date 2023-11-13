@@ -138,7 +138,7 @@
                 >
                   <div class="card-body">
                     <div v-if="message" class="alert alert-danger" role="alert">
-                      {{ message }}
+                      <i class="fa fa-exclamation-circle"></i> {{ message }}
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label" for="nip"
@@ -151,8 +151,15 @@
                           id="nip"
                           placeholder="NIP"
                           v-model="form.nip"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.nip"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.nip }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -166,8 +173,15 @@
                           id="nama"
                           placeholder="Nama"
                           v-model="form.nama"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.nama"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.nama }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -178,7 +192,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.mapelId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -189,6 +202,14 @@
                             {{ mapel.name_mapel }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.mapelId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.mapelId }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -219,7 +240,7 @@
                         <!-- <select
                           class="form-control select2"
                           v-model="form.kelasId"
-                          required
+                          
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -241,6 +262,14 @@
                             {{ kelass.name_kelas }}
                           </label>
                         </div>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.kelasId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.kelasId }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -251,7 +280,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.thnAjarId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -262,6 +290,14 @@
                             {{ thn_ajar.thn_ajaran }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.thnAjarId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.thnAjarId }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -272,7 +308,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.userId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -283,6 +318,14 @@
                             {{ user.username }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.userId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.userId }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -330,6 +373,7 @@ import KelasService from "../../services/kelas.service";
 import TahunAjarService from "../../services/thn_ajar.service";
 import MapelService from "../../services/mapel.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -350,6 +394,7 @@ export default {
         thnAjarId: "",
         userId: "",
       },
+      validationErrors: null,
       kelasId: [],
     };
   },
@@ -442,10 +487,66 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        nip: Joi.string().required().messages({
+          "string.empty": "NIP wajib diisi.",
+        }),
+        nama: Joi.string().required().messages({
+          "string.empty": "Nama wajib diisi.",
+        }),
+        mapelId: Joi.string().required().messages({
+          "string.empty": "Bidang Studi wajib dipilih.",
+        }),
+        kelasId: Joi.array().items(Joi.string()).min(1).required().messages({
+          "string.empty": "Kelas wajib dipilih.",
+          "array.min": "Minimal satu kelas harus dipilih.",
+        }),
+        thnAjarId: Joi.string().required().messages({
+          "string.empty": "Tahun Ajaran wajib dipilih.",
+        }),
+        userId: Joi.string().required().messages({
+          "string.empty": "UserId wajib dipilih.",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        nip: this.form.nip,
+        nama: this.form.nama,
+        mapelId: this.form.mapelId,
+        thnAjarId: this.form.thnAjarId,
+        userId: this.form.userId,
+        kelasId: this.kelasId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       GuruService.createGuru({
         id: this.form.id,
         nip: this.form.nip,
@@ -495,6 +596,34 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        nip: this.form.nip,
+        nama: this.form.nama,
+        mapelId: this.form.mapelId,
+        thnAjarId: this.form.thnAjarId,
+        userId: this.form.userId,
+        kelasId: this.kelasId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       GuruService.updateGuru(this.form.id, {
         id: this.form.id,
         nip: this.form.nip,
@@ -572,7 +701,9 @@ export default {
         (this.form.mapelId = ""),
         (this.kelasId = []),
         (this.form.thnAjarId = ""),
-        (this.form.userId = "");
+        (this.form.userId = ""),
+        (this.validationErrors = ""),
+        (this.message = "");
     },
   },
 };

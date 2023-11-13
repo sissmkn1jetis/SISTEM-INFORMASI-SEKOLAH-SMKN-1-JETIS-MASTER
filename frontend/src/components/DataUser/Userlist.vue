@@ -160,13 +160,15 @@
                           id="username"
                           placeholder="Username"
                           v-model="form.username"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="validationErrors && validationErrors.username"
-                          >{{ validationErrors.username }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.username }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -180,15 +182,17 @@
                           id="tempat_lahir"
                           placeholder="Tempat Lahir"
                           v-model="form.tempat_lahir"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="
                             validationErrors && validationErrors.tempat_lahir
                           "
-                          >{{ validationErrors.tempat_lahir }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.tempat_lahir }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -202,15 +206,17 @@
                           id="tanggal_lahir"
                           placeholder="Tanggal Lahir"
                           v-model="form.tanggal_lahir"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="
                             validationErrors && validationErrors.tanggal_lahir
                           "
-                          >{{ validationErrors.tanggal_lahir }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.tanggal_lahir }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -240,13 +246,16 @@
                           />
                           Perempuan
                         </label>
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="
                             validationErrors && validationErrors.jenis_kelamin
                           "
-                          >{{ validationErrors.jenis_kelamin }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.jenis_kelamin }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -260,13 +269,15 @@
                           id="agama"
                           placeholder="Agama"
                           v-model="form.agama"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="validationErrors && validationErrors.agama"
-                          >{{ validationErrors.agama }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.agama }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -280,13 +291,15 @@
                           id="alamat"
                           placeholder="Alamat"
                           v-model="form.alamat"
-                          required
                         ></textarea>
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="validationErrors && validationErrors.alamat"
-                          >{{ validationErrors.alamat }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.alamat }}
+                        </div>
                       </div>
                     </div>
                     <!-- <div class="form-group row">
@@ -300,7 +313,6 @@
                           id="almt_kel"
                           placeholder="Kelurahan"
                           v-model="form.almt_kel"
-                          required
                         />
                       </div>
                     </div>
@@ -315,7 +327,6 @@
                           id="almt_kec"
                           placeholder="Kecamatan"
                           v-model="form.almt_kec"
-                          required
                         />
                       </div>
                     </div>
@@ -330,7 +341,6 @@
                           id="almt_kab"
                           placeholder="Kabupaten/Kota"
                           v-model="form.almt_kab"
-                          required
                         />
                       </div>
                     </div>
@@ -345,7 +355,6 @@
                           id="almt_prov"
                           placeholder="Provinsi"
                           v-model="form.almt_prov"
-                          required
                         />
                       </div>
                     </div>
@@ -360,7 +369,6 @@
                           id="inputEmail"
                           placeholder="Email"
                           v-model="form.email"
-                          required
                         />
                       </div>
                     </div> -->
@@ -375,13 +383,15 @@
                           id="password"
                           placeholder="*******"
                           v-model="form.password"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="validationErrors && validationErrors.password"
-                          >{{ validationErrors.password }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.password }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -395,15 +405,17 @@
                           id="confPassword"
                           placeholder="*******"
                           v-model="form.confPassword"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="
                             validationErrors && validationErrors.confPassword
                           "
-                          >{{ validationErrors.confPassword }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.confPassword }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -411,22 +423,21 @@
                         >Role:</label
                       >
                       <div class="col-sm-9">
-                        <select
-                          class="custom-select"
-                          v-model="form.role"
-                          required
-                        >
+                        <select class="custom-select" v-model="form.role">
                           <option disabled value="">-- Pilih --</option>
                           <option value="admin">Admin</option>
                           <option value="guru">Guru</option>
                           <option value="walas">Walas</option>
                           <option value="kabeng">Kabeng</option>
                         </select>
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="validationErrors && validationErrors.role"
-                          >{{ validationErrors.role }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.role }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -435,18 +446,20 @@
                       >
                       <div class="col-sm-9">
                         <input
-                          type="number"
+                          type="text"
                           class="form-control"
                           id="phoneNumber"
                           placeholder="No.Tlp"
                           v-model="form.no_telp"
-                          required
                         />
-                        <span
-                          class="alert-danger"
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
                           v-if="validationErrors && validationErrors.no_telp"
-                          >{{ validationErrors.no_telp }}</span
                         >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.no_telp }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -579,31 +592,44 @@ export default {
 
     validateData(data) {
       const schema = Joi.object({
-        username: Joi.string().required().label("Username"),
-        tempat_lahir: Joi.string().required().label("Tempat Lahir"),
-        tanggal_lahir: Joi.date().iso().required().label("Tanggal Lahir"),
-        jenis_kelamin: Joi.string()
-          .valid("L", "P")
-          .required()
-          .label("Jenis Kelamin"),
-        agama: Joi.string().required().label("Agama"),
-        alamat: Joi.string().required().label("Alamat"),
-        password: Joi.string().min(8).required().label("Password").messages({
+        username: Joi.string().messages({
+          "string.empty": "Username wajib diisi",
+        }),
+        tempat_lahir: Joi.string().messages({
+          "string.empty": "Tempat Lahir wajib diisi",
+        }),
+        tanggal_lahir: Joi.date().messages({
+          "date.base": "Format tanggal lahir tidak valid",
+        }),
+        jenis_kelamin: Joi.string().valid("L", "P").messages({
+          "string.empty": "Jenis Kelamin wajib diisi",
+        }),
+        agama: Joi.string().messages({
+          "string.empty": "Agama wajib diisi",
+        }),
+        alamat: Joi.string().messages({
+          "string.empty": "Alamat wajib diisi",
+        }),
+        password: Joi.string().min(8).messages({
+          "string.empty": "Password wajib diisi",
           "string.min": "Password yang anda masukkan kurang dari 8 karakter",
         }),
-        confPassword: Joi.any()
-          .valid(Joi.ref("password"))
-          .required()
-          .label("Confirm Password")
-          .messages({ "any.only": "Confirm Password Tidak Cocok" }),
-        role: Joi.string()
-          .valid("admin", "guru", "walas", "kabeng")
-          .required()
-          .label("Role"),
-        no_telp: Joi.string().required().label("No.Tlp"),
+        confPassword: Joi.any().valid(Joi.ref("password")).messages({
+          "string.empty": "Confirm Password wajib diisi",
+          "any.only": "Confirm Password Tidak Cocok",
+        }),
+        role: Joi.string().valid("admin", "guru", "walas", "kabeng").messages({
+          "string.empty": "Role wajib diisi",
+        }),
+        no_telp: Joi.string().pattern(new RegExp("^[0-9]+$")).messages({
+          "string.empty": "Nomor telepon wajib diisi",
+          "string.pattern.base": "Nomor telepon hanya boleh berisi angka",
+        }),
       });
 
-      const { error } = schema.validate(data);
+      // const { error } = schema.validate(data);
+      // return error ? error.details : null;
+      const { error } = schema.validate(data, { abortEarly: false });
       return error ? error.details : null;
     },
 
@@ -791,7 +817,9 @@ export default {
         (this.form.almt_kec = ""),
         (this.form.almt_kab = ""),
         (this.form.almt_prov = ""),
-        (this.form.no_telp = "");
+        (this.form.no_telp = ""),
+        (this.validationErrors = ""),
+        (this.message = "");
     },
   },
 };
