@@ -42,10 +42,10 @@ module.exports = (sequelize, Sequelize) => {
                 notEmpty: true
             }
         },
-        tempat_pklId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
+        // tempat_pklId: {
+        //     type: Sequelize.INTEGER,
+        //     allowNull: false,
+        // },
     });
 
     return Siswa;

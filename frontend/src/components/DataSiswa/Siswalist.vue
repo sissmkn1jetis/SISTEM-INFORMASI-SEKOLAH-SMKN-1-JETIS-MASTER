@@ -46,7 +46,7 @@
                         <th class="align-middle text-center">JK</th>
                         <th class="align-middle text-center">Alamat</th>
                         <th class="align-middle text-center">Kelas</th>
-                        <th class="align-middle text-center">Tempat PKL</th>
+                        <!-- <th class="align-middle text-center">Tempat PKL</th> -->
                         <th class="align-middle text-center">Action</th>
                       </tr>
                     </thead>
@@ -73,10 +73,10 @@
                         <td class="align-middle text-center">
                           {{ siswa.kelas.name_kelas }}
                         </td>
-                        <td class="align-middle text-center">
-                          <!-- tempat_prakerin mengambil dari siswa controller getSiswa -->
+                        <!-- <td class="align-middle text-center">
+                          tempat_prakerin mengambil dari siswa controller getSiswa (tidak dipakai)
                           {{ siswa.tempat_prakerin.name_tempat }}
-                        </td>
+                        </td> -->
                         <td class="align-middle text-center">
                           <a
                             href="#"
@@ -252,8 +252,8 @@
                         </select>
                       </div>
                     </div>
-                    <!-- Prakerin Start -->
-                    <div class="form-group row">
+                    <!-- Prakerin Start (Tidak Dipakai) -->
+                    <!-- <div class="form-group row">
                       <label class="col-sm-3 col-form-label" for="tempat_pklId"
                         >Tempat PKL:</label
                       >
@@ -273,7 +273,7 @@
                           </option>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                     <!-- Prakerin End -->
                   </div>
                   <div class="modal-footer">
@@ -316,7 +316,7 @@
 <script>
 import SiswaService from "../../services/siswa.service";
 import KelasService from "../../services/kelas.service";
-import TempatPService from "../../services/tempat_prakerin.service";
+//import TempatPService from "../../services/tempat_prakerin.service";
 import Swal from "sweetalert2";
 export default {
   data() {
@@ -335,7 +335,7 @@ export default {
         jks: "",
         alamat: "",
         kelasId: "",
-        tempat_pklId: "",
+        // tempat_pklId: "",
       },
     };
   },
@@ -383,13 +383,13 @@ export default {
           console.log(e);
         });
 
-      TempatPService.getTempatP()
-        .then((response) => {
-          this.tempatpkl = response.data;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      // TempatPService.getTempatP()
+      //   .then((response) => {
+      //     this.tempatpkl = response.data;
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
 
       KelasService.getKelas()
         .then((response) => {
@@ -517,8 +517,8 @@ export default {
         (this.form.tgl_lahir = ""),
         (this.form.jks = ""),
         (this.form.alamat = ""),
-        (this.form.kelasId = ""),
-        (this.form.tempat_pklId = "");
+        (this.form.kelasId = "");
+        // (this.form.tempat_pklId = "");
     },
   },
 };

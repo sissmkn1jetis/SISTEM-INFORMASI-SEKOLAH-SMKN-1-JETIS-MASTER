@@ -89,9 +89,9 @@ db.jurnal_harian.belongsTo(db.siswa, { foreignKey: "siswaId", as: "siswa" });
 db.siswa.hasOne(db.absensi, { foreignKey: "siswaId", as: "absensi" });
 db.absensi.belongsTo(db.siswa, { foreignKey: "siswaId", as: "siswa" });
 
-//siswa & tempat_Prakerin
-db.tempat_prakerin.hasMany(db.siswa, { foreignKey: "tempat_pklId", as: "siswa" });
-db.siswa.belongsTo(db.tempat_prakerin, { foreignKey: "tempat_pklId", as: "tempat_prakerin" });
+//siswa & tempat_Prakerin (Diganti Akun Siswa)
+// db.tempat_prakerin.hasMany(db.siswa, { foreignKey: "tempat_pklId", as: "siswa" });
+// db.siswa.belongsTo(db.tempat_prakerin, { foreignKey: "tempat_pklId", as: "tempat_prakerin" });
 
 //siswa & kelas
 db.kelas.hasMany(db.siswa, { foreignKey: "kelasId", as: "siswa" });
