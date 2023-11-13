@@ -145,12 +145,21 @@
                         <select
                           class="form-control select2"
                           v-model="form.semester_aktif"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option value="aktif">Aktif</option>
                           <option value="tidak-aktif">Tidak Aktif</option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="
+                            validationErrors && validationErrors.semester_aktif
+                          "
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.semester_aktif }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -164,8 +173,15 @@
                           id="thn_ajaran"
                           placeholder="Tahun Ajaran"
                           v-model="form.thn_ajaran"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.thn_ajaran"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.thn_ajaran }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -209,6 +225,7 @@
 <script>
 import TahunAjarService from "../../services/thn_ajar.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -221,6 +238,7 @@ export default {
         semester_aktif: "",
         thn_ajaran: "",
       },
+      validationErrors: null,
     };
   },
   computed: {
@@ -277,10 +295,49 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        semester_aktif: Joi.string().required().messages({
+          "string.empty": "Status wajib diisi",
+        }),
+        thn_ajaran: Joi.string().required().messages({
+          "string.empty": "Tahun Ajaran wajib diisi",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        semester_aktif: this.form.semester_aktif,
+        thn_ajaran: this.form.thn_ajaran,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       TahunAjarService.createTahunAjar(this.form)
         .then((response) => {
           this.from = response.data;
@@ -319,6 +376,30 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        semester_aktif: this.form.semester_aktif,
+        thn_ajaran: this.form.thn_ajaran,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       TahunAjarService.updateTahunAjar(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;
@@ -379,8 +460,9 @@ export default {
     },
 
     resetForm() {
-      this.form.semester_aktif = "";
-      this.form.thn_ajaran = "";
+      (this.form.semester_aktif = ""),
+        (this.form.thn_ajaran = ""),
+        (this.validationErrors = "");
     },
   },
 };

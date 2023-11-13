@@ -127,8 +127,15 @@
                           id="name_mapel"
                           placeholder="Mata Pelajaran"
                           v-model="form.name_mapel"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.name_mapel"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.name_mapel }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -172,6 +179,7 @@
 <script>
 import MapelService from "../../services/mapel.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -184,6 +192,7 @@ export default {
         id: "",
         name_mapel: "",
       },
+      validationErrors: null,
     };
   },
   computed: {
@@ -241,10 +250,45 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        name_mapel: Joi.string().required().messages({
+          "string.empty": "Mata Pelajaran wajib diisi",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        name_mapel: this.form.name_mapel,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       MapelService.createMapel(this.form)
         .then((response) => {
           this.from = response.data;
@@ -283,6 +327,29 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        name_mapel: this.form.name_mapel,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       MapelService.updateMapel(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;
@@ -343,7 +410,7 @@ export default {
     },
 
     resetForm() {
-      this.form.name_mapel = "";
+      (this.form.name_mapel = ""), (this.validationErrors = "");
     },
   },
 };

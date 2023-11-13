@@ -537,8 +537,8 @@ export default {
     },
 
     resetForm() {
-      // (this.form.guruId = ""),
-      (this.form.kelassId = ""),
+      (this.form.guruId = ""),
+        (this.form.kelassId = ""),
         (this.form.thnAjarId = ""),
         (this.form.userId = "");
     },

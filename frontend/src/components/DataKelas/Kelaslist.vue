@@ -139,8 +139,15 @@
                           id="name_kelas"
                           placeholder="Kelas"
                           v-model="form.name_kelas"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.name_kelas"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.name_kelas }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -151,7 +158,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.jurusanId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -162,6 +168,14 @@
                             {{ jurusans.name_jurusan }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.jurusanId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.jurusanId }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -255,6 +269,7 @@ import KelasService from "../../services/kelas.service";
 import JurusanService from "../../services/jurusan.service";
 import SiswaService from "../../services/siswa.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -269,6 +284,7 @@ export default {
         name_kelas: "",
         jurusanId: "",
       },
+      validationErrors: null,
     };
   },
   computed: {
@@ -342,10 +358,49 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        name_kelas: Joi.string().required().messages({
+          "string.empty": "Kelas wajib diisi.",
+        }),
+        jurusanId: Joi.number().required().messages({
+          "number.base": "Jurusan wajib dipilih.",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        name_kelas: this.form.name_kelas,
+        jurusanId: this.form.jurusanId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       KelasService.createKelas(this.form)
         .then((response) => {
           this.from = response.data;
@@ -384,6 +439,30 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        name_kelas: this.form.name_kelas,
+        jurusanId: this.form.jurusanId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       KelasService.updateKelas(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;
@@ -444,7 +523,9 @@ export default {
     },
 
     resetForm() {
-      (this.form.name_kelas = ""), (this.form.jurusanId = "");
+      (this.form.name_kelas = ""),
+        (this.form.jurusanId = ""),
+        (this.validationErrors = "");
     },
   },
 };
