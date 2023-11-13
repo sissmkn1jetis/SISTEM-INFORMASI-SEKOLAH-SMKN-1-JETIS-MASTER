@@ -496,18 +496,18 @@ export default {
         nama: Joi.string().required().messages({
           "string.empty": "Nama wajib diisi.",
         }),
-        mapelId: Joi.string().required().messages({
-          "string.empty": "Bidang Studi wajib dipilih.",
+        mapelId: Joi.number().required().messages({
+          "number.base": "Bidang Studi wajib dipilih.",
         }),
         kelasId: Joi.array().items(Joi.string()).min(1).required().messages({
           "string.empty": "Kelas wajib dipilih.",
           "array.min": "Minimal satu kelas harus dipilih.",
         }),
-        thnAjarId: Joi.string().required().messages({
-          "string.empty": "Tahun Ajaran wajib dipilih.",
+        thnAjarId: Joi.number().required().messages({
+          "number.base": "Tahun Ajaran wajib dipilih.",
         }),
-        userId: Joi.string().required().messages({
-          "string.empty": "UserId wajib dipilih.",
+        userId: Joi.number().required().messages({
+          "number.base": "UserId wajib dipilih.",
         }),
       });
 
