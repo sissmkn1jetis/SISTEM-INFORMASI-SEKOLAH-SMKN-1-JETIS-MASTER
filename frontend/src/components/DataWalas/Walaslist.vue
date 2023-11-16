@@ -163,17 +163,17 @@
                         class="alert alert-danger"
                         role="alert"
                       >
+                        <i class="fa fa-exclamation-circle"></i>
                         {{ message }}
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group">
-                          <label>Name</label>
+                          <label>Nama</label>
                           <select
                             class="form-control select2"
                             v-model="form.guruId"
-                            required
                           >
                             <option disabled value="">-- Pilih --</option>
                             <option
@@ -184,6 +184,14 @@
                               {{ guru.nama }}
                             </option>
                           </select>
+                          <div
+                            class="alert alert-danger"
+                            role="alert"
+                            v-if="validationErrors && validationErrors.guruId"
+                          >
+                            <i class="fa fa-exclamation-circle"></i>
+                            {{ validationErrors.guruId }}
+                          </div>
                         </div>
                       </div>
                       <div class="col-6">
@@ -215,7 +223,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.kelassId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -226,6 +233,14 @@
                             {{ kelass.name_kelas }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.kelassId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.kelassId }}
+                        </div>
                       </div>
                     </div>
 
@@ -237,7 +252,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.thnAjarId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -248,6 +262,14 @@
                             {{ thn_ajar.thn_ajaran }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.thnAjarId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.thnAjarId }}
+                        </div>
                       </div>
                     </div>
 
@@ -259,7 +281,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.userId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -270,6 +291,14 @@
                             {{ user.username }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.userId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.userId }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -317,6 +346,7 @@ import TahunAjarService from "../../services/thn_ajar.service";
 import GuruService from "../../services/guru.service";
 import UserService from "../../services/user.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -336,6 +366,7 @@ export default {
         userId: "",
       },
       message: "",
+      validationErrors: null,
     };
   },
   computed: {
@@ -427,10 +458,57 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        guruId: Joi.number().required().messages({
+          "number.base": "Nama wajib dipilih.",
+        }),
+        kelassId: Joi.number().messages({
+          "number.base": "Kelas wajib dipilih.",
+        }),
+        thnAjarId: Joi.number().required().messages({
+          "number.base": "Tahun Ajaran wajib dipilih.",
+        }),
+        userId: Joi.number().required().messages({
+          "number.base": "UserId wajib dipilih.",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        guruId: this.form.guruId,
+        kelassId: this.kelassId,
+        thnAjarId: this.form.thnAjarId,
+        userId: this.form.userId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       WalasService.createWalas(this.form)
         .then((response) => {
           this.from = response.data;
@@ -473,6 +551,32 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        guruId: this.form.guruId,
+        kelassId: this.kelassId,
+        thnAjarId: this.form.thnAjarId,
+        userId: this.form.userId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       WalasService.updateWalas(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;
@@ -540,7 +644,9 @@ export default {
       (this.form.guruId = ""),
         (this.form.kelassId = ""),
         (this.form.thnAjarId = ""),
-        (this.form.userId = "");
+        (this.form.userId = ""),
+        (this.message = ""),
+        (this.validationErrors = "");
     },
   },
 };

@@ -153,8 +153,15 @@
                           id="nis"
                           placeholder="NIS"
                           v-model="form.nis"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.nis"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.nis }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -168,8 +175,15 @@
                           id="name"
                           placeholder="Name"
                           v-model="form.name"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.name"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.name }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -183,8 +197,15 @@
                           id="tgl_lahir"
                           placeholder="Tanggal Lahir"
                           v-model="form.tgl_lahir"
-                          required
                         />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.tgl_lahir"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.tgl_lahir }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -214,6 +235,14 @@
                           />
                           Perempuan
                         </label>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.jks"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.jks }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -227,8 +256,15 @@
                           id="alamat"
                           placeholder="Alamat"
                           v-model="form.alamat"
-                          required
                         ></textarea>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.alamat"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.alamat }}
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -239,7 +275,6 @@
                         <select
                           class="form-control select2"
                           v-model="form.kelasId"
-                          required
                         >
                           <option disabled value="">-- Pilih --</option>
                           <option
@@ -250,6 +285,14 @@
                             {{ kelasId.name_kelas }}
                           </option>
                         </select>
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          v-if="validationErrors && validationErrors.kelasId"
+                        >
+                          <i class="fa fa-exclamation-circle"></i>
+                          {{ validationErrors.kelasId }}
+                        </div>
                       </div>
                     </div>
                     <!-- Prakerin Start (Tidak Dipakai) -->
@@ -318,6 +361,7 @@ import SiswaService from "../../services/siswa.service";
 import KelasService from "../../services/kelas.service";
 //import TempatPService from "../../services/tempat_prakerin.service";
 import Swal from "sweetalert2";
+import Joi from "joi";
 export default {
   data() {
     return {
@@ -337,6 +381,7 @@ export default {
         kelasId: "",
         // tempat_pklId: "",
       },
+      validationErrors: null,
     };
   },
   computed: {
@@ -410,10 +455,65 @@ export default {
           console.log(e);
         });
     },
+
+    validateData(data) {
+      const schema = Joi.object({
+        nis: Joi.number().required().messages({
+          "number.base": "NIS wajib diisi.",
+        }),
+        name: Joi.string().required().messages({
+          "string.empty": "Nama wajib diisi.",
+        }),
+        tgl_lahir: Joi.date().messages({
+          "date.base": "Format tanggal lahir tidak valid",
+        }),
+        jks: Joi.string().valid("L", "P").messages({
+          "string.empty": "Jenis Kelamin wajib diisi",
+        }),
+        alamat: Joi.string().messages({
+          "string.empty": "Alamat wajib diisi",
+        }),
+        kelasId: Joi.number().required().messages({
+          "number.base": "Kelas wajib dipilih.",
+        }),
+      });
+
+      const { error } = schema.validate(data, { abortEarly: false });
+      return error ? error.details : null;
+    },
+
     simpanData() {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        nis: this.form.nis,
+        name: this.form.name,
+        tgl_lahir: this.form.tgl_lahir,
+        jks: this.form.jks,
+        alamat: this.form.alamat,
+        kelasId: this.form.kelasId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       SiswaService.createSiswa(this.form)
         .then((response) => {
           this.from = response.data;
@@ -452,6 +552,34 @@ export default {
       this.$Progress.start();
       this.loading = true;
       this.disabled = true;
+
+      // Validasi data sebelum simpan
+      const dataToCreate = {
+        nis: this.form.nis,
+        name: this.form.name,
+        tgl_lahir: this.form.tgl_lahir,
+        jks: this.form.jks,
+        alamat: this.form.alamat,
+        kelasId: this.form.kelasId,
+      };
+
+      const validationError = this.validateData(dataToCreate);
+      if (validationError) {
+        // Setel pesan kesalahan ke variabel validationErrors
+        this.validationErrors = validationError.reduce((errors, error) => {
+          errors[error.context.key] = error.message;
+          return errors;
+        }, {});
+
+        this.$Progress.fail();
+        this.loading = false;
+        this.disabled = false;
+        return;
+      }
+
+      // Clear pesan kesalahan jika validasi berhasil
+      this.validationErrors = null;
+
       SiswaService.updateSiswa(this.form.id, this.form)
         .then((response) => {
           this.from = response.data;
@@ -517,8 +645,9 @@ export default {
         (this.form.tgl_lahir = ""),
         (this.form.jks = ""),
         (this.form.alamat = ""),
-        (this.form.kelasId = "");
-        // (this.form.tempat_pklId = "");
+        (this.form.kelasId = ""),
+        (this.validationErrors = "");
+      // (this.form.tempat_pklId = "");
     },
   },
 };
