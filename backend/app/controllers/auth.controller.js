@@ -334,6 +334,11 @@ exports.getProfileWalas = async (req, res) => {
               attributes: ['id', 'nip', 'nama'],
             },
             {
+              model: TahunAjar,
+              attributes: ['id', 'semester_aktif', 'thn_ajaran'],
+              as: 'thn_ajar',
+            },
+            {
               model: Kelas,
               as: 'kelas',
               attributes: ['id', 'name_kelas'],
@@ -379,6 +384,11 @@ exports.getProfileWalas = async (req, res) => {
           model: Mapel,
           as: 'mapel',
           attributes: ['id', 'name_mapel'],
+        },
+        {
+          model: TahunAjar,
+          attributes: ['id', 'semester_aktif', 'thn_ajaran'],
+          as: 'thn_ajar',
         },
       ],
     });

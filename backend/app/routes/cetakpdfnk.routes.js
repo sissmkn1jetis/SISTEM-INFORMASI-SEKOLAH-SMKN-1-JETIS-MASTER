@@ -10,6 +10,6 @@ module.exports = function (app) {
         next();
     });
 
-    app.post("/api/pdfnilaiketrampilan", [authJwt.verifyToken], controller.cetakPDFNK)
+    app.post("/api/pdfnilaiketrampilan", controller.cetakPDFNK)
     // app.get("/api/pdfnilaiketrampilan", [authJwt.verifyToken], controller.getcetakPDF);
 };

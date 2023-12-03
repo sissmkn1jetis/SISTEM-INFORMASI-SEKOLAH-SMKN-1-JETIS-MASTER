@@ -343,6 +343,28 @@ const { user: User, guru: Guru, walas: Walas, kelas: Kelas, mapel: Mapel, siswa:
 
 exports.cetakPDFNK = async (req, res) => {
     try {
+        const { htmlContent } = req.body;
+
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+
+        await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
+
+        const pdfBuffer = await page.pdf({ format: 'A4' });
+
+        await browser.close();
+
+        res.contentType('application/pdf');
+        res.send(pdfBuffer);
+
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+
+exports.cetakPDFNKsecond = async (req, res) => {
+    try {
         const userId = req.userId;
         const selectedMapel = req.body.selectedMapel;
         const user = await User.findOne({
