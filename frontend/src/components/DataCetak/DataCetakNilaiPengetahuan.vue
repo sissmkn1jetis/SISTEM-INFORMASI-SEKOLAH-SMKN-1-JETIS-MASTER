@@ -285,7 +285,7 @@
                   <form>
                     <div class="card-body">
                       <h1 class="text-center p-2 pb-4">
-                        Daftar Nilai Ketrampilan
+                        Daftar Nilai Pengetahuan
                       </h1>
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="nip"
