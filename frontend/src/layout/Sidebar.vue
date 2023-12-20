@@ -149,6 +149,12 @@
         </li>
 
         <li v-if="showAdmin || showKabeng" class="nav-item">
+          <router-link to="/akunsiswa" class="nav-link">
+            <i class="nav-icon fa fa-users"></i>
+            <p>Akun Siswa</p>
+          </router-link>
+        </li>
+        <li v-if="showAdmin || showKabeng" class="nav-item">
           <router-link to="/tempatpkl" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
             <p>Tempat Prakerin</p>
@@ -156,19 +162,19 @@
         </li>
         <li v-if="showAdmin || showKabeng" class="nav-item">
           <router-link to="/absensi" class="nav-link">
-            <i class="nav-icon fas fa-home"></i>
+            <i class="nav-icon fas fa-clipboard-list"></i>
             <p>Data Absensi</p>
           </router-link>
         </li>
         <li v-if="showAdmin || showKabeng" class="nav-item">
           <router-link to="/jurnalharian" class="nav-link">
-            <i class="nav-icon fas fa-home"></i>
+            <i class="nav-icon fas fa-book-open"></i>
             <p>Data Jurnal Harian</p>
           </router-link>
         </li>
         <li v-if="showAdmin || showKabeng" class="nav-item">
           <router-link to="/izin" class="nav-link">
-            <i class="nav-icon fas fa-home"></i>
+            <i class="nav-icon fas fa-clipboard-list"></i>
             <p>Data Izin</p>
           </router-link>
         </li>

@@ -27,6 +27,7 @@ const TempatPrakerin = () => import("./components/DataTempatPrakerin/TempatPrake
 const Absensi = () => import("./components/DataAbsensi/AbsensiList.vue")
 const JurnalH = () => import("./components/DataJurnalHarian/JurnalHList.vue")
 const Izin = () => import("./components/DataIzin/IzinList.vue")
+const AkunSiswa = () => import("./components/DataAkunSiswa/AkunSiswaList.vue")
 
 const routes = [
   {
@@ -194,6 +195,13 @@ const routes = [
         name: "izin",
         // lazy-loaded
         component: Izin,
+      },
+
+      {
+        path: "/akunsiswa",
+        name: "akunsiswa",
+        // lazy-loaded
+        component: AkunSiswa,
       },
     ]
   },

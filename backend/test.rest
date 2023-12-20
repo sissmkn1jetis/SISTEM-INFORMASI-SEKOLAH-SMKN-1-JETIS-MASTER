@@ -166,10 +166,10 @@ POST http://localhost:8080/api/test/user
 Content-Type: application/json
 
 {
-    "username": "walas",
+    "username": "admin1",
     "password": "12345678",
     "confPassword": "12345678",
-    "role": "walas",
+    "role": "admin",
     "tempat_lahir": "Konoha", 
     "tanggal_lahir": "2000-08-19", 
     "jenis_kelamin": "L", 
@@ -545,6 +545,23 @@ Content-Type: application/json
   "deskripsi": "Izin Kepentingan Keluarga",
   "foto": "url_foto"
 }
+
+###
+//Register Akun Siswa
+POST http://localhost:8080/api/test/akunsiswa
+Content-Type: application/json
+
+{
+    "siswaId": 1,
+    "username": 1001,
+    "password": "12345678",
+    "tempat_pklId": 1,
+    "status": "AKTIF"
+}
+
+###
+//Get Akun Siswa
+GET http://localhost:8080/api/test/akunsiswa
 
 ###
 //get izin

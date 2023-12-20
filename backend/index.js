@@ -52,6 +52,7 @@ require('./app/routes/izin.routes')(app);
 require('./app/routes/cetakpdfnk.routes')(app);
 require('./app/routes/cetakpdfnp.routes')(app);
 require('./app/routes/dashboard.routes')(app);
+require('./app/routes/akun_siswa.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
