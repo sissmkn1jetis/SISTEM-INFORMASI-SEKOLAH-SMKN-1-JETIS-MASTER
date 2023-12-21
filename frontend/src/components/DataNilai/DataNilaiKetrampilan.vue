@@ -214,26 +214,40 @@
                               <div v-else>-</div>
                             </td>
                             <td class="align-middle text-center">
+                              <!-- Tampilkan tombol tambah jika tidak ada data di nkData -->
                               <a
+                                v-if="
+                                  nkData.length === 0 ||
+                                  nkData.filter(
+                                    (coba) => coba.siswaId === child.id
+                                  ).length === 0
+                                "
                                 href="#"
                                 class="badge bg-success mr-2"
                                 @click="showModal(child.id)"
-                                ><i class="fas fa-pen"></i
-                              ></a>
-                              <div v-for="coba in nkData" :key="coba.id">
-                                <div v-if="coba.siswaId === child.id">
-                                  <a
-                                    href="#"
-                                    class="badge bg-info mr-2"
-                                    @click="showModalEdit(coba.id)"
-                                    ><i class="fas fa-edit"></i
-                                  ></a>
-                                  <a
-                                    href="#"
-                                    class="badge bg-danger mr-2"
-                                    @click="deleteData(coba.id)"
-                                    ><i class="fas fa-trash-alt"></i
-                                  ></a>
+                              >
+                                <i class="fas fa-pen"></i>
+                              </a>
+
+                              <!-- Tampilkan tombol edit dan delete jika ada data di nkData -->
+                              <div v-if="nkData.length > 0">
+                                <div v-for="coba in nkData" :key="coba.id">
+                                  <div v-if="coba.siswaId === child.id">
+                                    <a
+                                      href="#"
+                                      class="badge bg-info mr-2"
+                                      @click="showModalEdit(coba.id)"
+                                    >
+                                      <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a
+                                      href="#"
+                                      class="badge bg-danger mr-2"
+                                      @click="deleteData(coba.id)"
+                                    >
+                                      <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                  </div>
                                 </div>
                               </div>
                             </td>
