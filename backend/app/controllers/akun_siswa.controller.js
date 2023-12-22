@@ -211,17 +211,19 @@ exports.loginSiswa = async (req, res) => {
         });
       }
 
-      const token = jwt.sign({ id: akunsiswa.id }, config.secret, {
+      let tokenData = {id: akunsiswa.id,
+        siswaId: akunsiswa.siswaId,
+        username: akunsiswa.username,
+        tempat_pklId: akunsiswa.tempat_pklId,
+        status: akunsiswa.status,}
+
+      const token = jwt.sign(tokenData, config.secret, {
         expiresIn: config.jwtExpiration
       });
 
       let refreshToken = await RefreshToken.createToken(akunsiswa);
 
       res.status(200).send({
-        id: akunsiswa.id,
-        siswaId: akunsiswa.siswaId,
-        username: akunsiswa.username,
-        tempat_pklId: akunsiswa.tempat_pklId,
         status: akunsiswa.status,
         accessToken: token,
         refreshToken: refreshToken,

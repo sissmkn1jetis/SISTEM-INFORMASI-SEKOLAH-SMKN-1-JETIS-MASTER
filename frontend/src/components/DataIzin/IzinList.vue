@@ -58,7 +58,7 @@
                           {{ jurnal.deskripsi }}
                         </td>
                         <td class="align-middle text-center">
-                          {{ jurnal.foto }}
+                          <img :src="'https://api1.sissmkn1jetis.my.id/uploads/izin/'+jurnal.foto" width="100" alt="{{ jurnal.foto }}"/>
                         </td>
                         <td class="align-middle text-center">
                           <!-- <a href="#" class="badge bg-info mr-2" @click="showModalEdit(siswa.id)"><i
