@@ -21,6 +21,12 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.getTempatPById
     );
+    
+    app.get(
+        "/api/test/gettempatp/:id",
+        //[authJwt.verifyToken, authJwt.isAdmin],
+        controller.getTempatPById
+    );
 
     app.post(
         "/api/test/listtempatp",

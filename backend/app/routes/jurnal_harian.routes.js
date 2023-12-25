@@ -22,6 +22,12 @@ module.exports = function (app) {
         controller.getJurnalHById
     );
 
+    app.get(
+        "/api/test/listjurnalsiswa/:siswaId",
+        // [authJwt.verifyToken, authJwt.isAdmin],
+        controller.getJurnalHBySiswa
+    );
+
     app.post(
         "/api/test/listjurnal",
         // [authJwt.verifyToken, authJwt.isAdmin],

@@ -22,6 +22,12 @@ module.exports = function (app) {
         controller.getSiswaById
     );
 
+    app.get(
+        "/api/test/getsiswa/:id",
+        //[authJwt.verifyToken, authJwt.isAdmin],
+        controller.getSiswaById
+    );
+
     // app.get(
     //     "/api/test/listsiswakelas/:kelasId",
     //     // [authJwt.verifyToken, authJwt.isAdmin],

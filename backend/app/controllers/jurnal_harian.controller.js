@@ -40,6 +40,34 @@ exports.getJurnalHById = async (req, res) => {
     }
 }
 
+exports.getJurnalHBySiswa = async (req, res) => {
+    try {
+        const jurnal = await JurnalH.findAll({
+            where: {
+                siswaId: req.params.siswaId
+            }
+        });
+        if (!jurnal) return res.status(404).json({ msg: "Data kosong atau tidak ditemukan." });
+        //let response;
+        let response = await JurnalH.findAll({
+            attributes: ['id', 'siswaId', 'tgl_jurnal', 'jam_jurnal', 'isi_jurnal'],
+            include: [
+                {
+                    model: Siswa,
+                    attributes: ['id', 'nis', 'name'],
+                    as: "siswa",
+                },
+            ],
+            where: {
+                siswaId: req.params.siswaId
+            },
+        });
+        res.status(200).json({success:response});
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
 exports.createJurnalH = async (req, res) => {
     const { siswaId, tgl_jurnal, jam_jurnal, isi_jurnal } = req.body;
     try {
