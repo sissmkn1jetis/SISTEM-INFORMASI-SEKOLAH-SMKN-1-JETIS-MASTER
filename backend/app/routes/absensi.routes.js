@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, uploadAbsen } = require("../middleware");
 const controller = require("../controllers/absensi.controller");
 
 module.exports = function (app) {
@@ -17,7 +17,7 @@ module.exports = function (app) {
     );
 
     app.get(
-        "/api/test/listabsensi/:id",
+        "/api/test/listabsensi/:siswaId",
         // [authJwt.verifyToken, authJwt.isAdmin],
         controller.getAbsensiById
     );
@@ -25,12 +25,21 @@ module.exports = function (app) {
     app.post(
         "/api/test/listabsensi",
         // [authJwt.verifyToken, authJwt.isAdmin],
+        uploadAbsen.single('foto_masuk'), //upload ke absen, 'foto' nama field di db
         controller.createAbsensi
     );
 
     app.patch(
         "/api/test/listabsensi/:id",
         // [authJwt.verifyToken, authJwt.isAdmin],
+        uploadAbsen.single('foto_pulang'),
+        controller.updateAbsensi
+    );
+
+    app.put(
+        "/api/test/listabsensi/:id",
+        // [authJwt.verifyToken, authJwt.isAdmin],
+        uploadAbsen.single('foto_pulang'),
         controller.updateAbsensi
     );
 
@@ -38,5 +47,11 @@ module.exports = function (app) {
         "/api/test/listabsensi/:id",
         // [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteAbsensi
+    );
+
+    app.get(
+        "/api/test/idabsensi/:siswaId/:tgl_absen",
+        // [authJwt.verifyToken, authJwt.isAdmin],
+        controller.getAbsensiId
     );
 };

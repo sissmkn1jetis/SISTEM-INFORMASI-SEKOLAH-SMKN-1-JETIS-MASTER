@@ -4,14 +4,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Absensi</h1>
+            <h1>Data Presensi</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">
                 <router-link to="/dashboard">Dashboard</router-link>
               </li>
-              <li class="breadcrumb-item active">Data Absensi</li>
+              <li class="breadcrumb-item active">Data Presensi</li>
             </ol>
           </div>
         </div>
@@ -36,14 +36,15 @@
                     <thead>
                       <tr>
                         <th class="align-middle text-center">No</th>
+                        <th class="align-middle text-center">NIS</th>
                         <th class="align-middle text-center">Siswa</th>
                         <th class="align-middle text-center">Lokasi Masuk</th>
                         <th class="align-middle text-center">Lokasi Pulang</th>
                         <th class="align-middle text-center">Tgl Absen</th>
                         <th class="align-middle text-center">Jam Masuk</th>
                         <th class="align-middle text-center">Jam Pulang</th>
-                        <th class="align-middle text-center">Keterangan</th>
-                        <th class="align-middle text-center">Foto</th>
+                        <th class="align-middle text-center">Foto Masuk</th>
+                        <th class="align-middle text-center">Foto Pulang</th>
                         <th class="align-middle text-center">Action</th>
                       </tr>
                     </thead>
@@ -53,13 +54,16 @@
                           {{ index + 1 }}
                         </td>
                         <td class="align-middle text-center">
+                          {{ absen.siswa.nis }}
+                        </td>
+                        <td class="align-middle text-center">
                           {{ absen.siswa.name }}
                         </td>
                         <td class="align-middle text-center">
-                          {{ absen.lokasi_masuk }}
+                          <a v-bind:href="'https://www.google.com/maps/search/?api=1&query='+absen.lokasi_masuk" target="_blank">{{ absen.lokasi_masuk }}</a>
                         </td>
                         <td class="align-middle text-center">
-                          {{ absen.lokasi_pulang }}
+                          <a v-bind:href="'https://www.google.com/maps/search/?api=1&query='+absen.lokasi_pulang" target="_blank">{{ absen.lokasi_pulang }}</a>
                         </td>
                         <td class="align-middle text-center">
                           {{ absen.tgl_absen }}
@@ -71,15 +75,15 @@
                           {{ absen.jm_pulang }}
                         </td>
                         <td class="align-middle text-center">
-                          {{ absen.keterangan }}
+                          <img :src="'https://api1.sissmkn1jetis.my.id/uploads/absen/'+absen.foto_masuk" width="100"/>
                         </td>
                         <td class="align-middle text-center">
-                          {{ absen.foto }}
+                          <img :src="'https://api1.sissmkn1jetis.my.id/uploads/absen/'+absen.foto_pulang" width="100"/>
                         </td>
                         <td class="align-middle text-center">
                           <!-- <a href="#" class="badge bg-info mr-2" @click="showModalEdit(siswa.id)"><i
                               class="fas fa-edit"></i></a> -->
-                          <a href="#" class="badge bg-danger" @click="deleteData(siswa.id)"><i
+                          <a href="#" class="badge bg-danger" @click="deleteData(absen.id)"><i
                               class="fas fa-trash-alt"></i></a>
                         </td>
                       </tr>
@@ -219,8 +223,8 @@ export default {
         tgl_absen: "",
         jm_masuk: "",
         jm_pulang: "",
-        keterangan: "",
-        foto: "",
+        foto_masuk: "",
+        foto_pulang: "",
       },
     };
   },
@@ -392,8 +396,8 @@ export default {
       (this.form.tgl_absen = ""),
       (this.form.jm_masuk = ""),
       (this.form.jm_pulang = ""),
-      (this.form.keterangan = ""),
-      (this.form.foto = "");
+      (this.form.foto_masuk = ""),
+      (this.form.foto_pulang = "");
     },
   },
 };

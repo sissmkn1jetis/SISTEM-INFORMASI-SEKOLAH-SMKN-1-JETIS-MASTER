@@ -36,6 +36,7 @@
                     <thead>
                       <tr>
                         <th class="align-middle text-center">No</th>
+                        <th class="align-middle text-center">NIS</th>
                         <th class="align-middle text-center">Siswa</th>
                         <th class="align-middle text-center">Tanggal</th>
                         <th class="align-middle text-center">Jam</th>
@@ -47,6 +48,9 @@
                       <tr v-for="(jurnal, index) in jurnalh" :key="index.id">
                         <td class="align-middle text-center">
                           {{ index + 1 }}
+                        </td>
+                        <td class="align-middle text-center">
+                          {{ jurnal.siswa.nis }}
                         </td>
                         <td class="align-middle text-center">
                           {{ jurnal.siswa.name }}
@@ -63,7 +67,7 @@
                         <td class="align-middle text-center">
                           <!-- <a href="#" class="badge bg-info mr-2" @click="showModalEdit(siswa.id)"><i
                               class="fas fa-edit"></i></a> -->
-                          <a href="#" class="badge bg-danger" @click="deleteData(siswa.id)"><i
+                          <a href="#" class="badge bg-danger" @click="deleteData(jurnal.id)"><i
                               class="fas fa-trash-alt"></i></a>
                         </td>
                       </tr>

@@ -218,7 +218,7 @@ exports.loginSiswa = async (req, res) => {
         status: akunsiswa.status,}
 
       const token = jwt.sign(tokenData, config.secret, {
-        expiresIn: config.jwtExpiration
+        expiresIn: config.jwtExpirationMobile
       });
 
       let refreshToken = await RefreshToken.createToken(akunsiswa);

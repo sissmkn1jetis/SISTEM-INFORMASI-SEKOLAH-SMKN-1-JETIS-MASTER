@@ -36,7 +36,7 @@
                     <thead>
                       <tr>
                         <th class="align-middle text-center">No</th>
-                        <th class="align-middle text-center">Siswa</th>
+                        <th class="align-middle text-center">NIS</th>
                         <th class="align-middle text-center">Tanggal</th>
                         <th class="align-middle text-center">Deskripsi</th>
                         <th class="align-middle text-center">Foto</th>
@@ -49,6 +49,9 @@
                           {{ index + 1 }}
                         </td>
                         <td class="align-middle text-center">
+                          {{ jurnal.siswa.nis }}
+                        </td>
+                        <td class="align-middle text-center">
                           {{ jurnal.siswa.name }}
                         </td>
                         <td class="align-middle text-center">
@@ -58,12 +61,12 @@
                           {{ jurnal.deskripsi }}
                         </td>
                         <td class="align-middle text-center">
-                          <img :src="'https://api1.sissmkn1jetis.my.id/uploads/izin/'+jurnal.foto" width="100" alt="{{ jurnal.foto }}"/>
+                          <img :src="'https://api1.sissmkn1jetis.my.id/uploads/izin/'+jurnal.foto" width="100"/>
                         </td>
                         <td class="align-middle text-center">
                           <!-- <a href="#" class="badge bg-info mr-2" @click="showModalEdit(siswa.id)"><i
                               class="fas fa-edit"></i></a> -->
-                          <a href="#" class="badge bg-danger" @click="deleteData(siswa.id)"><i
+                          <a href="#" class="badge bg-danger" @click="deleteData(jurnal.id)"><i
                               class="fas fa-trash-alt"></i></a>
                         </td>
                       </tr>

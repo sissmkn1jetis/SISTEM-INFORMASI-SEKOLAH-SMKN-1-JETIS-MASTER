@@ -27,19 +27,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: true,
         },
-        keterangan: {
+        foto_masuk: {
             type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
+            allowNull: true,
         },
-        foto: {
+        foto_pulang: {
             type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
+            allowNull: true,
         },
     });
 

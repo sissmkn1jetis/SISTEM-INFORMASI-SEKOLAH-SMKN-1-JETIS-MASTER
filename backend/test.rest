@@ -166,7 +166,7 @@ POST http://localhost:8080/api/test/user
 Content-Type: application/json
 
 {
-    "username": "admin1",
+    "username": "admin2",
     "password": "12345678",
     "confPassword": "12345678",
     "role": "admin",
@@ -190,7 +190,7 @@ POST http://localhost:8080/api/test/user
 Content-Type: application/json
 
 {
-    "username": "administrator",
+    "username": "admin2",
     "email": "administrator@gmail.com",
     "password": "12345678",
     "confPassword": "12345678",
