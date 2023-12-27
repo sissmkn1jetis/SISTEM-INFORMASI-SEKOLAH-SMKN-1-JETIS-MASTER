@@ -127,7 +127,8 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #00b4db, #0083b0);
+  /*background: linear-gradient(135deg, #00b4db, #0083b0); */
+  background: #e9e9e9;
   font-family: "Poppins", sans-serif;
 }
 
@@ -142,7 +143,7 @@ export default {
 .login-header {
   text-align: center;
   padding: 30px 0;
-  background-color: #00b4db;
+  background-color: #3a7fc2;
   color: #fff;
 }
 
@@ -154,7 +155,7 @@ export default {
 
 .profile-img-card {
   width: 100px;
-  height: 100px;
+  height: auto;
   border-radius: 0%;
   margin: 0 auto 20px;
 }
@@ -186,7 +187,7 @@ export default {
 }
 
 .btn-primary {
-  background-color: #00b4db;
+  background-color: #3a7fc2;
   border-color: #00b4db;
   width: 100%;
   padding: 12px 0;

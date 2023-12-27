@@ -308,6 +308,16 @@
               </button>
             </div>
             <div class="modal-body">
+              <p class="text-muted">Catatan*:</p>
+              <p class="text-muted catatan">
+                1. Isilah Nilai Pengetahuan jangan sampai kosong
+              </p>
+              <p class="text-muted catatan">
+                2. Untuk mengisi harus berupa angka
+              </p>
+              <p class="text-muted catatan">
+                3. Angka yang dapat dimasukkan 0-100
+              </p>
               <div class="card card-default">
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -1051,5 +1061,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.catatan {
+  padding-left: 30px;
+}
 </style>
