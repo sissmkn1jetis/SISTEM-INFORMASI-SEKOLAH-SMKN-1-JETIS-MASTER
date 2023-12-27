@@ -37,6 +37,7 @@
                       <tr>
                         <th class="align-middle text-center">No</th>
                         <th class="align-middle text-center">NIS</th>
+                        <th class="align-middle text-center">Nama</th>
                         <th class="align-middle text-center">Tanggal</th>
                         <th class="align-middle text-center">Deskripsi</th>
                         <th class="align-middle text-center">Foto</th>
