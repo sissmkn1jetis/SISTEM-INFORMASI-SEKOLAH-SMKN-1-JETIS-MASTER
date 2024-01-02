@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const Siswa = sequelize.define("siswas", {
         nis: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             allowNull: false,
             unique: true,
             validate: {

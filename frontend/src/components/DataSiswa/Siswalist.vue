@@ -148,10 +148,11 @@
                       >
                       <div class="col-sm-9">
                         <input
-                          type="number"
+                          type="string"
                           class="form-control"
                           id="nis"
                           placeholder="NIS"
+                          pattern="[0-9]*"
                           v-model="form.nis"
                         />
                         <div
@@ -458,8 +459,11 @@ export default {
 
     validateData(data) {
       const schema = Joi.object({
-        nis: Joi.number().required().messages({
-          "number.base": "NIS wajib diisi.",
+        // nis: Joi.number().required().messages({
+        //   "number.base": "NIS wajib diisi.",
+        // }),
+        nis: Joi.string().required().messages({
+          "string.empty": "NIS wajib diisi.",
         }),
         name: Joi.string().required().messages({
           "string.empty": "Nama wajib diisi.",

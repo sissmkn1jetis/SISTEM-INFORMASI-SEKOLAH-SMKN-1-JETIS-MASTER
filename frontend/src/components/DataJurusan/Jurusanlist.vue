@@ -126,43 +126,13 @@
                         >Jurusan:</label
                       >
                       <div class="col-sm-9">
-                        <!-- <input
+                        <input
                           type="text"
                           class="form-control"
                           id="name_jurusan"
                           placeholder="Jurusan"
                           v-model="form.name_jurusan"
-                          required
-                        /> -->
-                        <select
-                          class="form-control"
-                          id="name_jurusan"
-                          v-model="form.name_jurusan"
-                        >
-                          <option value="" disabled>-- Pilih Jurusan --</option>
-                          <option value="Teknik Bodi Otomotif">
-                            Teknik Bodi Otomotif
-                          </option>
-                          <option value="Teknik Kendaraan Ringan">
-                            Teknik Kendaraan Ringan
-                          </option>
-                          <option value="Teknik dan Bisnis Sepeda Motor">
-                            Teknik dan Bisnis Sepeda Motor
-                          </option>
-                          <option value="Teknik Pengelasan">
-                            Teknik Pengelasan
-                          </option>
-                          <option value="Teknik Pemesinan">
-                            Teknik Pemesinan
-                          </option>
-                          <option value="Teknik Audio Video">
-                            Teknik Audio Video
-                          </option>
-                          <option value="Teknik Elektronika Industri">
-                            Teknik Elektronika Industri
-                          </option>
-                          <option value="Multimedia">Multimedia</option>
-                        </select>
+                        />
                         <div
                           class="alert alert-danger"
                           role="alert"
