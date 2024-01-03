@@ -146,7 +146,7 @@
                       >
                       <div class="col-sm-9">
                         <input
-                          type="number"
+                          type="text"
                           class="form-control"
                           id="nip"
                           placeholder="NIP"
@@ -490,8 +490,8 @@ export default {
 
     validateData(data) {
       const schema = Joi.object({
-        nip: Joi.number().required().messages({
-          "number.base": "NIP wajib diisi.",
+        nip: Joi.string().required().messages({
+          "string.empty": "NIP wajib diisi.",
         }),
         nama: Joi.string().required().messages({
           "string.empty": "Nama wajib diisi.",
